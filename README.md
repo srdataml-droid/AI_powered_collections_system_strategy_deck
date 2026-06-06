@@ -136,8 +136,8 @@ Here's what the system looks like end to end:
 
 | Service | Link |
 |---------|------|
-| 🎨 Dashboard | *[Your Streamlit URL here]* |
-| ⚡ API Docs | *[Your Render URL here]/docs* |
+| 🎨 Dashboard | *[[streamlit live](https://aipoweredcollectionssystemstrategydeck-tbb9snnwvsr8unhqruzuub.streamlit.app/)]* |
+| ⚡ API Docs | *[[Render dashboard](https://geldium-api-3nnf.onrender.com/)]/docs* |
 
 ---
 
