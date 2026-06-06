@@ -274,4 +274,4 @@ Massive credit to the Tata Group for designing a program that goes beyond surfac
 
 ---
 
-*Built by [Irenikase Samuel Temitope] | [www.linkedin.com/in/samuel-irenikase-582954364*
+*Built by [Irenikase Samuel Temitope] | [www.linkedin.com/in/samuel-irenikase-582954364*]
