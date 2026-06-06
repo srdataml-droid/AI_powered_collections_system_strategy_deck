@@ -194,8 +194,8 @@ with st.sidebar:
     if check_api_health():
         st.success("✅ Connected")
     else:
-        st.error("❌ Offline — start FastAPI first")
-        st.code("python -m uvicorn main:app --reload", language="bash")
+        st.error("❌ Offline — start backend server first")
+        st.code("backend server connecting ...", language="bash")
 
 
 # ═════════════════════════════════════════════════════════════════════════════
