@@ -44,7 +44,7 @@ import json
 # The URL of your running FastAPI server.
 # Locally this is always http://localhost:8000
 # When deployed to cloud, you'll change this to your Render/Railway URL.
-API_URL = "http://localhost:8000"
+API_URL = "https://geldium-api-3nnf.onrender.com"
 
 # Streamlit page config — must be the FIRST streamlit call in the script
 st.set_page_config(
