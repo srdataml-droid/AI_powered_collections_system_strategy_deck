@@ -7,3 +7,4 @@ pydantic
 openpyxl
 requests
 streamlit
+google-generativeai

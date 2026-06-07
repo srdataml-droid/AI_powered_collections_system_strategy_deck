@@ -1,0 +1,501 @@
+Customer_ID,risk_tier,risk_score,confidence,intervention,timestamp
+CUST0001,Medium,0.0,0.989047619047619,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0002,Medium,0.02,0.8996,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0003,Low,0.0025,0.9969117647058823,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0004,Medium,0.01,0.9510714285714286,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0005,Medium,0.0,0.98,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0006,Low,0.01,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0007,Medium,0.0,0.92,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0008,Medium,0.0,0.9656944444444444,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0009,Medium,0.0,0.9734126984126984,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0010,Low,0.0,0.9748484848484849,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0011,High,0.91,0.91,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0012,Low,0.0,0.9796296296296296,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0013,Low,0.0,0.92,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0014,Low,0.01,0.9080555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0015,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0016,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0017,Low,0.01,0.8571626984126985,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0018,Low,0.01,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0019,Low,0.03,0.96,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0020,Medium,0.0,0.7796358543417367,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0021,Low,0.02,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0022,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0023,Low,0.0,0.7884555555555557,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0024,High,0.875,0.875,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0025,Low,0.0,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0026,Low,0.01,0.9723529411764705,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0027,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0028,High,0.91,0.91,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0029,Low,0.01,0.9496296296296296,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0030,Low,0.01,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0031,Medium,0.01,0.98375,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0032,Medium,0.0,0.99,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0033,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0034,Medium,0.0,0.9522943722943722,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0035,Medium,0.01,0.97,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0036,Medium,0.0,0.9806944444444444,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0037,Low,0.0,0.9694117647058823,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0038,Medium,0.0,0.9676470588235294,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0039,Low,0.0,0.9681818181818181,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0040,Medium,0.0,0.94,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0041,Medium,0.0,0.980195238095238,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0042,Medium,0.0,0.9823809523809524,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0043,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0044,Low,0.05,0.95,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0045,Medium,0.0,0.7782467532467533,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0046,Medium,0.01,0.94875,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0047,Medium,0.0,0.9423809523809524,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0048,Low,0.01,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0049,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0050,Medium,0.01,0.9262626262626261,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0051,Medium,0.0,0.9819444444444444,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0052,Medium,0.0,0.9884126984126983,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0053,Low,0.0,0.9919825708061002,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0054,Medium,0.01,0.9640000000000001,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0055,Low,0.0,0.9733333333333333,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0056,Low,0.0,0.9804761904761905,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0057,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0058,Low,0.0,0.9960714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0059,Medium,0.01,0.97375,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0060,Low,0.0,0.9860714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0061,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0062,Medium,0.0,0.9313970588235294,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0063,Low,0.01,0.9480555555555555,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0064,Low,0.01,0.9662962962962962,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0065,Low,0.0,0.9948484848484849,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0066,Low,0.0,0.9780555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0067,Low,0.0006666666666666666,0.9793333333333334,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0068,Low,0.0,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0069,Low,0.0,0.9537770562770562,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0070,Low,0.02,0.94,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0071,Low,0.0,0.9881818181818182,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0072,Medium,0.0,0.9604761904761905,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0073,High,0.8606666666666666,0.8606666666666666,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0074,High,0.84,0.84,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0075,Low,0.0,0.9337373737373739,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0076,Low,0.01,0.9,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0077,Low,0.0006666666666666666,0.9693333333333334,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0078,Low,0.0,0.9866666666666666,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0079,Low,0.03,0.8909199134199133,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0080,Medium,0.0,0.912132679738562,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0081,High,0.9025,0.9025,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0082,Low,0.0,0.9848484848484849,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0083,Low,0.0,0.9995238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0084,Low,0.02,0.95,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0085,Medium,0.0,0.9613970588235294,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0086,Low,0.0,0.95,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0087,Low,0.0006666666666666666,0.9922373737373738,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0088,Low,0.02,0.9723529411764705,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0089,Medium,0.0,0.9752777777777777,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0090,High,0.57,0.57,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0091,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0092,Medium,0.03,0.9588888888888889,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0093,Medium,0.03,0.92,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0094,Medium,0.0,0.9790476190476189,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0095,Low,0.03,0.95625,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0096,Medium,0.03,0.9590476190476189,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0097,Low,0.01,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0098,Medium,0.04,0.96,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0099,Low,0.0,0.9618767507002801,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0100,Medium,0.07,0.5,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0101,Low,0.0,0.9695238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0102,Low,0.0006666666666666666,0.9769126984126985,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0103,Medium,0.02,0.8925326797385621,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0104,Low,0.0,0.9960714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0105,Medium,0.0,0.9643137254901961,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0106,Medium,0.0,0.9735285714285713,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0107,Low,0.0,0.9194079365079365,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0108,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0109,Medium,0.0,0.95,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0110,Low,0.01,0.9243055555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0111,Medium,0.02,0.9291666666666666,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0112,Medium,0.02,0.93,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0113,Low,0.0,0.92,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0114,Low,0.01,0.9223214285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0115,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0116,Low,0.01,0.9876851851851852,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0117,Low,0.0,0.9995238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0118,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0119,Low,0.0,0.8829040404040405,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0120,Low,0.0,0.9680555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0121,Low,0.0,0.986,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0122,Medium,0.0,0.9809920634920636,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0123,Low,0.21,0.66625,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0124,Low,0.0,0.9774673202614379,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0125,Low,0.0,0.9294117647058823,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0126,Low,0.0,0.9995238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0127,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0128,Low,0.0,0.9880555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0129,Low,0.02,0.9548484848484848,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0130,Low,0.0,0.9972089947089947,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0131,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0132,Low,0.01,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0133,High,0.95,0.95,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0134,Low,0.0,0.9480555555555555,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0135,Medium,0.03,0.8951515151515151,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0136,Medium,0.0,0.9791238095238094,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0137,Medium,0.0,0.9867708683473388,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0138,Low,0.0,0.9733333333333333,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0139,Medium,0.0,0.967047619047619,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0140,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0141,Low,0.0,0.9933333333333333,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0142,Low,0.0,0.99625,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0143,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0144,Medium,0.02,0.9420999999999999,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0145,High,0.41,0.41,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0146,Low,0.0,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0147,Low,0.0,0.9995238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0148,Low,0.020666666666666663,0.9793333333333334,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0149,Low,0.01,0.8948484848484849,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0150,Low,0.02,0.86,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0151,Medium,0.0,0.9601515151515152,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0152,Low,0.02,0.9675,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0153,Medium,0.02,0.9039285714285714,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0154,Low,0.0,0.9860714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0155,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0156,Medium,0.21,0.67,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0157,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0158,Low,0.01,0.9666666666666667,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0159,Low,0.0,0.9233333333333335,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0160,Low,0.01,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0161,Low,0.0,0.9109090909090909,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0162,Medium,0.1,0.7451515151515151,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0163,Medium,0.02,0.89,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0164,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0165,Medium,0.0,0.9829761904761906,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0166,Medium,0.0,0.9935285714285713,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0167,Low,0.0,0.94,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0168,Low,0.0,0.9895238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0169,Medium,0.01,0.89,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0170,Low,0.0,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0171,Medium,0.03,0.9190909090909091,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0172,Low,0.0,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0173,Low,0.005,0.9907010582010582,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0174,Medium,0.0,0.98,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0175,Medium,0.0,0.9790476190476189,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0176,Low,0.01,0.9896296296296296,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0177,Medium,0.0,0.9695039682539682,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0178,Low,0.0,0.8994117647058824,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0179,Medium,0.0,0.989047619047619,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0180,Medium,0.04,0.8684848484848484,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0181,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0182,Low,0.02,0.9780555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0183,Medium,0.0,0.9648777777777776,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0184,Medium,0.03,0.799047619047619,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0185,Low,0.0025,0.9794825708061002,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0186,Low,0.0,0.9656818181818181,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0187,Low,0.0,0.9466666666666665,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0188,Low,0.02,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0189,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0190,Low,0.0,0.9880555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0191,Low,0.0,0.9896296296296296,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0192,Medium,0.05,0.7894612794612794,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0193,Medium,0.01,0.9633333333333334,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0194,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0195,Low,0.01,0.95,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0196,Low,0.0,0.9880555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0197,Low,0.0,0.9886904761904762,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0198,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0199,Low,0.0,0.9991534391534391,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0200,Low,0.01,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0201,Medium,0.0,0.9495999999999999,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0202,Low,0.0,0.9489646464646465,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0203,Medium,0.01,0.9623809523809524,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0204,Low,0.0,0.9929040404040405,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0205,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0206,Low,0.01,0.9574673202614379,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0207,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0208,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0209,High,0.89,0.89,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0210,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0211,Low,0.04,0.9466666666666668,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0212,Low,0.010666666666666666,0.977388888888889,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0213,Low,0.0,0.9848484848484849,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0214,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0215,Low,0.0,0.9247222222222223,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0216,Low,0.0,0.986,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0217,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0218,Low,0.01,0.9237373737373739,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0219,Low,0.0,0.92,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0220,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0221,Low,0.01,0.9895238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0222,Low,0.01,0.9880555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0223,Low,0.0,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0224,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0225,Low,0.0,0.9860714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0226,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0227,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0228,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0229,Low,0.0,0.9827380952380952,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0230,Low,0.0,0.9781818181818182,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0231,Low,0.0,0.9955555555555555,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0232,Low,0.0,0.9975,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0233,Low,0.0006666666666666666,0.987388888888889,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0234,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0235,High,0.7,0.7,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0236,Medium,0.0,0.79,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0237,Medium,0.01,0.9191666666666666,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0238,Low,0.0,0.98625,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0239,Low,0.0,0.9880555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0240,Medium,0.02,0.9476470588235294,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0241,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0242,Low,0.0,0.9974673202614379,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0243,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0244,Medium,0.0,0.968690909090909,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0245,Medium,0.0,0.9569696969696969,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0246,Low,0.0,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0247,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0248,Medium,0.02,0.9,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0249,Low,0.01,0.9566666666666666,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0250,Low,0.01,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0251,Medium,0.01,0.9384126984126984,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0252,Low,0.02,0.9748484848484849,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0253,Low,0.01,0.9880555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0254,Low,0.01,0.9560714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0255,Low,0.0,0.9880555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0256,Low,0.0,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0257,Low,0.0,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0258,Low,0.0006666666666666666,0.9770185185185185,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0259,Medium,0.02,0.9320999999999999,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0260,Medium,0.0,0.9695238095238095,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0261,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0262,Low,0.03,0.88,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0263,Medium,0.0,0.9829333333333333,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0264,Medium,0.06,0.8996,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0265,High,0.9,0.9,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0266,High,0.83,0.83,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0267,Low,0.0,0.9604761904761905,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0268,Low,0.06,0.93,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0269,Low,0.0,0.9796296296296296,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0270,Low,0.01,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0271,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0272,Low,0.02,0.9580555555555555,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0273,Low,0.0,0.9068355742296919,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0274,Low,0.01,0.91,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0275,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0276,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0277,High,0.87,0.87,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0278,Medium,0.0,0.98,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0279,Medium,0.0,0.9939285714285714,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0280,Low,0.025,0.9398484848484848,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0281,Low,0.0,0.9996296296296296,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0282,Low,0.0,0.98625,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0283,Medium,0.02,0.9523611111111111,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0284,Low,0.0,0.9893055555555555,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0285,Low,0.05,0.9280555555555555,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0286,Low,0.0,0.9823529411764705,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0287,High,0.7,0.7,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0288,Medium,0.02,0.9714682539682539,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0289,Low,0.0,0.9948484848484849,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0290,Low,0.02,0.94,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0291,Low,0.0,0.9860714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0292,Medium,0.0,0.9633297258297259,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0293,High,0.82,0.82,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0294,Medium,0.04,0.8878501400560225,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0295,Low,0.01,0.9429166666666666,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0296,Low,0.0,0.9895238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0297,Medium,0.02,0.95,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0298,Low,0.0,0.96,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0299,Low,0.0,0.9927380952380952,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0300,Medium,0.01,0.9834523809523809,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0301,Medium,0.0,0.9798777777777776,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0302,Low,0.0,0.95,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0303,Low,0.01,0.9876851851851852,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0304,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0305,Low,0.01,0.982,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0306,Low,0.0,0.9909126984126985,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0307,Low,0.0,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0308,Medium,0.01,0.9439285714285713,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0309,Low,0.0,0.9416666666666665,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0310,Low,0.0,0.9911111111111112,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0311,Medium,0.02,0.9396,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0312,Medium,0.0,0.9820206349206348,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0313,Medium,0.01,0.9413970588235294,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0314,High,0.86,0.86,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0315,Medium,0.01,0.92,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0316,Medium,0.0,0.9733333333333334,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0317,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0318,Low,0.0,0.9880555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0319,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0320,High,0.95,0.95,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0321,High,0.97,0.97,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0322,Medium,0.0,0.9190909090909091,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0323,Low,0.01,0.95,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0324,Medium,0.05,0.8309848484848484,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0325,Medium,0.0,0.8615444444444443,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0326,Low,0.0,0.94625,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0327,Low,0.020666666666666663,0.9693333333333334,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0328,Medium,0.0,0.954516806722689,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0329,Medium,0.0,0.9711476190476189,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0330,Low,0.02,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0331,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0332,Medium,0.01,0.9633333333333334,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0333,Low,0.0,0.8881818181818182,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0334,Low,0.0,0.9794117647058823,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0335,Low,0.0225,0.74,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0336,Low,0.01,0.9780555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0337,Low,0.0,0.9975793650793651,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0338,Low,0.02,0.9620000000000001,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0339,Low,0.0,0.9880555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0340,Low,0.0,0.9777056277056277,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0341,Medium,0.01,0.9895999999999999,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0342,Low,0.02,0.9413888888888888,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0343,Low,0.0,0.95,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0344,Medium,0.05,0.9106349206349207,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0345,Low,0.0,0.9213888888888888,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0346,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0347,Low,0.0006666666666666666,0.9622373737373738,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0348,High,0.73,0.73,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0349,Low,0.0,0.9855952380952381,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0350,Medium,0.0,0.9266666666666667,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0351,Medium,0.0,0.9756944444444444,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0352,Low,0.0,0.92,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0353,Low,0.0,0.9785317460317461,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0354,Low,0.0,0.9995238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0355,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0356,Medium,0.0,0.9795999999999999,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0357,Medium,0.01,0.9204166666666665,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0358,Low,0.01,0.96,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0359,Low,0.01,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0360,Low,0.0,0.9847222222222223,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0361,Medium,0.02,0.8894612794612794,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0362,High,0.81,0.81,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0363,Medium,0.0,0.9481709956709957,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0364,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0365,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0366,Medium,0.0,0.9889650793650793,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0367,Medium,0.0,0.95,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0368,High,0.8125,0.8125,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0369,Low,0.0,0.9895238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0370,Medium,0.0,0.9705952380952383,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0371,Medium,0.0,0.9739285714285714,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0372,Low,0.01,0.9504761904761905,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0373,Low,0.01,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0374,Low,0.0,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0375,Low,0.01,0.9457010582010582,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0376,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0377,High,0.8706666666666666,0.8706666666666666,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0378,Medium,0.01,0.7651515151515151,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0379,Low,0.0006666666666666666,0.9893333333333334,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0380,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0381,Low,0.01,0.92,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0382,Medium,0.0,0.8595238095238095,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0383,Medium,0.0,0.955,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0384,Low,0.0,0.9648117647058824,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0385,Medium,0.1725,0.6975,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0386,Low,0.01,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0387,Medium,0.0,0.9743452380952381,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0388,Medium,0.0,0.9633333333333334,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0389,Medium,0.0,0.74,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0390,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0391,Low,0.0,0.9991534391534391,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0392,Low,0.01,0.9423117647058824,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0393,Low,0.0,0.9895238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0394,Low,0.0,0.9960714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0395,Low,0.01,0.95,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0396,Medium,0.0,0.9775797979797979,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0397,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0398,Low,0.0,0.9480190476190477,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0399,Medium,0.15,0.72,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0400,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0401,High,0.86,0.86,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0402,High,0.85,0.85,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0403,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0404,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0405,Medium,0.0,0.94,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0406,Medium,0.01,0.9690873015873015,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0407,Low,0.0,0.9929040404040405,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0408,Low,0.0,0.9960714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0409,Medium,0.0,0.889047619047619,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0410,Low,0.03,0.96,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0411,Low,0.0006666666666666666,0.977388888888889,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0412,Low,0.0,0.9947222222222223,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0413,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0414,Low,0.0,0.8,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0415,Medium,0.0,0.9591238095238094,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0416,Low,0.0,0.99625,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0417,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0418,Low,0.0,0.9975,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0419,Medium,0.0,0.9833465608465609,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0420,Low,0.0,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0421,Low,0.0,0.9881818181818182,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0422,Medium,0.0,0.9583333333333335,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0423,Medium,0.0,0.9480936196700902,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0424,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0425,Low,0.01,0.9860714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0426,Low,0.0,0.8880555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0427,High,0.94,0.94,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0428,Medium,0.0,0.9916470588235293,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0429,Low,0.005,0.98125,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0430,Low,0.03,0.9143055555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0431,Medium,0.01,0.7619444444444444,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0432,Medium,0.0,0.915,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0433,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0434,Low,0.0,0.9930303030303032,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0435,Medium,0.01,0.9183333333333334,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0436,Medium,0.03,0.9143181818181819,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0437,Low,0.0,0.96,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0438,Low,0.0,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0439,Medium,0.06,0.88,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0440,Low,0.0,0.9896296296296296,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0441,Medium,0.0,0.9766959595959596,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0442,Low,0.0,0.9575,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0443,Medium,0.01,0.8405882352941176,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0444,Low,0.02,0.9529040404040404,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0445,Low,0.0,0.9704629629629629,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0446,Medium,0.0,0.9938095238095238,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0447,Low,0.04,0.9066666666666666,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0448,Low,0.0,0.9909722222222223,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0449,Low,0.0,0.9895238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0450,Low,0.0,0.9780555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0451,Low,0.0006666666666666666,0.9649285714285715,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0452,Medium,0.0,0.9660119047619048,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0453,Medium,0.03,0.934,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0454,Low,0.0,0.9771428571428572,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0455,Low,0.0006666666666666666,0.9869126984126985,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0456,Medium,0.0,0.98,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0457,Low,0.0,0.9995238095238095,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0458,Low,0.01,0.96,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0459,Medium,0.0,0.929047619047619,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0460,Medium,0.0,0.9909333333333332,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0461,Medium,0.0,0.9666666666666667,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0462,Low,0.02066666666666667,0.9793333333333334,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0463,Low,0.0,0.99625,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0464,Low,0.0,0.9960714285714286,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0465,Low,0.0,0.9766666666666666,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0466,High,0.89,0.89,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0467,High,0.84,0.84,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696
+CUST0468,Low,0.01,0.9620000000000001,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0469,Low,0.0,0.9578767507002801,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0470,Low,0.0,0.985,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0471,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0472,Low,0.01,0.98,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0473,Low,0.01,0.99,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0474,Medium,0.02,0.8838989417989417,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0475,Low,0.0,0.9229629629629629,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0476,Low,0.0,0.9943518518518519,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0477,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0478,Low,0.0,0.9866666666666666,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0479,Medium,0.04,0.9155882352941177,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0480,Low,0.0,0.9766666666666666,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0481,Medium,0.0,0.9651515151515152,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0482,Low,0.0,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0483,Low,0.0,0.9857010582010582,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0484,Medium,0.0,0.9690476190476189,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0485,Low,0.0,0.977579365079365,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0486,Low,0.02,0.95,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0487,Low,0.01,0.92,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0488,Low,0.0,0.9830303030303031,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0489,Low,0.02,0.9705423280423281,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0490,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0491,Low,0.0,0.98625,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0492,Low,0.0,0.9980555555555556,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0493,Low,0.0,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0494,Medium,0.04,0.93,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0495,Low,0.01,0.94,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0496,Low,0.0,0.97,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0497,Low,0.0,0.9996296296296296,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0498,Low,0.0,1.0,Automated reminder — send standard payment reminder via SMS or email.,2026-06-06T23:20:41.790696
+CUST0499,Medium,0.0,0.9680126984126983,Proactive outreach — send repayment plan offer and counselling invitation.,2026-06-06T23:20:41.790696
+CUST0500,High,0.89,0.89,Escalate to human agent — offer personalised hardship plan immediately.,2026-06-06T23:20:41.790696

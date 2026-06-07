@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Geldium AI Collections</title>
+  <style>
+    /* ── RESET & BASE ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d1117;
+      --surface:   #161b22;
+      --border:    #30363d;
+      --primary:   #2e86c1;
+      --primary-h: #1a6fa8;
+      --text:      #e6edf3;
+      --muted:     #8b949e;
+      --high:      #c0392b;
+      --high-bg:   #2a0f0f;
+      --med:       #d68910;
+      --med-bg:    #2a1f00;
+      --low:       #27ae60;
+      --low-bg:    #0f2a1a;
+      --radius:    10px;
+      --transition: 0.2s ease;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* ── SIDEBAR ──────────────────────────────────────────────── */
+    .sidebar {
+      width: 240px;
+      min-height: 100vh;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-brand .icon {
+      font-size: 28px;
+    }
+
+    .sidebar-brand h1 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .sidebar-brand p {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .sidebar-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 16px 0;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: all var(--transition);
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-item:hover { background: var(--border); color: var(--text); }
+    .nav-item.active { background: var(--primary); color: white; }
+
+    .api-status {
+      margin-top: auto;
+      padding: 12px;
+      border-radius: var(--radius);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .api-status.online  { background: var(--low-bg);  color: var(--low);  }
+    .api-status.offline { background: var(--high-bg); color: var(--high); }
+
+    /* ── MAIN CONTENT ─────────────────────────────────────────── */
+    .main {
+      margin-left: 240px;
+      flex: 1;
+      padding: 40px;
+      max-width: calc(100vw - 240px);
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .page-subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    /* ── CARDS ────────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    /* ── GRID ─────────────────────────────────────────────────── */
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-card .value {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-card .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── TIER CARDS ───────────────────────────────────────────── */
+    .tier-high   { border-left: 4px solid var(--high); background: var(--high-bg); }
+    .tier-medium { border-left: 4px solid var(--med);  background: var(--med-bg);  }
+    .tier-low    { border-left: 4px solid var(--low);  background: var(--low-bg);  }
+
+    .tier-card {
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+
+    .tier-card .tier-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .tier-card .tier-desc  { font-size: 13px; color: var(--muted); }
+
+    .tier-high   .tier-title { color: var(--high); }
+    .tier-medium .tier-title { color: var(--med);  }
+    .tier-low    .tier-title { color: var(--low);  }
+
+    /* ── FORMS ────────────────────────────────────────────────── */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input[type="number"],
+    .form-group input[type="email"],
+    .form-group input[type="text"],
+    .form-group input[type="range"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      color: var(--text);
+      font-size: 14px;
+      transition: border-color var(--transition);
+      outline: none;
+    }
+
+    .form-group input:focus { border-color: var(--primary); }
+
+    .range-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .range-wrap input[type="range"] {
+      padding: 0;
+      accent-color: var(--primary);
+    }
+
+    .range-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 48px;
+      text-align: right;
+    }
+
+    /* ── BUTTONS ──────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all var(--transition);
+    }
+
+    .btn-primary { background: var(--primary); color: white; width: 100%; justify-content: center; }
+    .btn-primary:hover { background: var(--primary-h); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ── RESULT CARD ──────────────────────────────────────────── */
+    .result-card {
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .result-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .metric {
+      text-align: center;
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .metric .m-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .metric .m-value { font-size: 26px; font-weight: 700; margin-top: 4px; }
+
+    .intervention-box {
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 12px;
+    }
+
+    .explanation-box {
+      background: rgba(46, 134, 193, 0.1);
+      border-left: 3px solid var(--primary);
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .explanation-box strong { color: var(--text); display: block; margin-bottom: 6px; }
+
+    /* ── TABLE ────────────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; margin-top: 16px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      background: var(--bg);
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    tr:hover td { background: var(--surface); }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-high   { background: var(--high-bg); color: var(--high); }
+    .badge-medium { background: var(--med-bg);  color: var(--med);  }
+    .badge-low    { background: var(--low-bg);  color: var(--low);  }
+
+    /* ── FILE UPLOAD ──────────────────────────────────────────── */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .upload-zone:hover,
+    .upload-zone.drag-over { border-color: var(--primary); background: rgba(46,134,193,0.05); }
+
+    .upload-zone .upload-icon { font-size: 40px; margin-bottom: 12px; }
+    .upload-zone p { color: var(--muted); font-size: 14px; }
+    .upload-zone strong { color: var(--text); }
+
+    #file-input { display: none; }
+
+    /* ── ALERTS ───────────────────────────────────────────────── */
+    .alert {
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .alert.show { display: block; }
+    .alert-error   { background: var(--high-bg); color: var(--high); border-left: 3px solid var(--high); }
+    .alert-success { background: var(--low-bg);  color: var(--low);  border-left: 3px solid var(--low);  }
+    .alert-info    { background: rgba(46,134,193,0.1); color: var(--primary); border-left: 3px solid var(--primary); }
+
+    /* ── SPINNER ──────────────────────────────────────────────── */
+    .spinner {
+      display: none;
+      width: 20px; height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── SUMMARY METRICS ──────────────────────────────────────── */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .summary-item {
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .summary-item .s-val   { font-size: 28px; font-weight: 700; }
+    .summary-item .s-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* ── SETTINGS ─────────────────────────────────────────────── */
+    .settings-section { margin-bottom: 28px; }
+    .settings-section h4 { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+
+    /* ── SCROLLBAR ────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ──────────────────────────────────────────────────── -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <span class="icon">🏦</span>
+    <div>
+      <h1>Geldium AI</h1>
+      <p>Collections System</p>
+    </div>
+  </div>
+
+  <hr class="sidebar-divider"/>
+
+  <button class="nav-item active" onclick="navigate('home')">🏠 &nbsp;Home</button>
+  <button class="nav-item" onclick="navigate('single')">🔍 &nbsp;Single Predict</button>
+  <button class="nav-item" onclick="navigate('batch')">📂 &nbsp;Batch Predict</button>
+  <button class="nav-item" onclick="navigate('settings')">⚙️ &nbsp;Settings</button>
+
+  <hr class="sidebar-divider"/>
+
+  <div id="api-status" class="api-status offline">⚪ Checking API...</div>
+</aside>
+
+<!-- ── MAIN ─────────────────────────────────────────────────────── -->
+<main class="main">
+
+  <!-- ── HOME PAGE ──────────────────────────────────────────────── -->
+  <section id="page-home" class="page active">
+    <h2>🏦 Geldium AI Collections System</h2>
+    <p class="page-subtitle">Autonomous, responsible AI for predicting delinquency risk and recommending interventions at scale.</p>
+
+    <div class="grid-3">
+      <div class="stat-card">
+        <div class="value">500</div>
+        <div class="label">Customers in Dataset</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">98%</div>
+        <div class="label">Model Accuracy</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">3</div>
+        <div class="label">Risk Tiers</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>🤖 How it works</h3>
+        <p style="font-size:13px; color:var(--muted); line-height:1.7;">
+          Trained on real Geldium customer data using a Random Forest model.
+          Scores customers across 8 financial features to predict delinquency risk.
+          Each prediction includes an AI-generated explanation powered by Gemini.
+        </p>
+      </div>
+      <div class="card">
+        <h3>🛡️ Responsible AI</h3>
+        <p style="font-size:13px; color:var(--muted); line-height:1.7;">
+          Fairness monitoring across customer segments. Explainable predictions
+          in plain language. Human oversight for all High-risk escalations.
+          ECOA and GDPR aligned design.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Risk Tier Guide</h3>
+      <div class="tier-card tier-high">
+        <div class="tier-title">🔴 HIGH RISK</div>
+        <div class="tier-desc">Credit utilization &gt;80% + missed payments → Escalate to human agent immediately</div>
+      </div>
+      <div class="tier-card tier-medium">
+        <div class="tier-title">🟡 MEDIUM RISK</div>
+        <div class="tier-desc">Elevated utilization or debt burden → Proactive outreach + repayment plan offer</div>
+      </div>
+      <div class="tier-card tier-low">
+        <div class="tier-title">🟢 LOW RISK</div>
+        <div class="tier-desc">Stable repayment behaviour → Automated payment reminder</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SINGLE PREDICT PAGE ────────────────────────────────────── -->
+  <section id="page-single" class="page">
+    <h2>🔍 Single Customer Prediction</h2>
+    <p class="page-subtitle">Enter a customer's financial details to get their risk tier and recommended action.</p>
+
+    <div id="single-alert" class="alert"></div>
+
+    <div class="card">
+      <div class="grid-2">
+
+        <div>
+          <div class="form-group">
+            <label>Credit Utilization</label>
+            <div class="range-wrap">
+              <input type="range" id="credit_util" min="0" max="1.5" step="0.01" value="0.5"
+                oninput="document.getElementById('credit_util_val').textContent = (this.value*100).toFixed(0)+'%'"/>
+              <span class="range-val" id="credit_util_val">50%</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Missed Payments</label>
+            <input type="number" id="missed_payments" min="0" max="10" value="0"/>
+          </div>
+
+          <div class="form-group">
+            <label>Credit Score</label>
+            <input type="number" id="credit_score" min="300" max="850" value="600"/>
+          </div>
+
+          <div class="form-group">
+            <label>Debt-to-Income Ratio</label>
+            <div class="range-wrap">
+              <input type="range" id="dti" min="0" max="2" step="0.01" value="0.3"
+                oninput="document.getElementById('dti_val').textContent = parseFloat(this.value).toFixed(2)"/>
+              <span class="range-val" id="dti_val">0.30</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group">
+            <label>Annual Income (£)</label>
+            <input type="number" id="income" min="0" value="45000"/>
+          </div>
+
+          <div class="form-group">
+            <label>Loan Balance (£)</label>
+            <input type="number" id="loan_balance" min="0" value="10000"/>
+          </div>
+
+          <div class="form-group">
+            <label>Age</label>
+            <input type="number" id="age" min="18" max="100" value="35"/>
+          </div>
+
+          <div class="form-group">
+            <label>Account Tenure (years)</label>
+            <input type="number" id="tenure" min="0" max="50" value="3"/>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary" onclick="predictSingle()" id="predict-btn">
+        <span id="predict-spinner" class="spinner"></span>
+        🔮 Predict Risk Tier
+      </button>
+    </div>
+
+    <!-- Result appears here -->
+    <div id="single-result" style="display:none;"></div>
+  </section>
+
+  <!-- ── BATCH PREDICT PAGE ─────────────────────────────────────── -->
+  <section id="page-batch" class="page">
+    <h2>📂 Batch Customer Prediction</h2>
+    <p class="page-subtitle">Upload a CSV file of customers and download their risk predictions.</p>
+
+    <div id="batch-alert" class="alert"></div>
+
+    <div class="card">
+      <h3>Required CSV Format</h3>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">Your CSV must have these exact column names:</p>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Credit_Utilization</th><th>Missed_Payments</th><th>Credit_Score</th>
+              <th>Debt_to_Income_Ratio</th><th>Income</th><th>Loan_Balance</th>
+              <th>Age</th><th>Account_Tenure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0.85</td><td>2</td><td>480</td>
+              <td>0.6</td><td>45000</td><td>12000</td>
+              <td>34</td><td>3</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn btn-outline" style="margin-top:14px; width:auto;" onclick="downloadTemplate()">
+        ⬇️ Download Template CSV
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>Upload Customer CSV</h3>
+      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()"
+           ondragover="event.preventDefault(); this.classList.add('drag-over')"
+           ondragleave="this.classList.remove('drag-over')"
+           ondrop="handleDrop(event)">
+        <div class="upload-icon">📄</div>
+        <p><strong>Click to upload</strong> or drag and drop</p>
+        <p>CSV files only</p>
+      </div>
+      <input type="file" id="file-input" accept=".csv" onchange="handleFile(this.files[0])"/>
+      <div id="file-info" style="display:none; margin-top:12px; font-size:13px; color:var(--muted);"></div>
+    </div>
+
+    <button class="btn btn-primary" id="batch-btn" onclick="predictBatch()" style="display:none;">
+      <span id="batch-spinner" class="spinner"></span>
+      🚀 Run Batch Prediction
+    </button>
+
+    <div id="batch-results" style="display:none; margin-top:20px;"></div>
+  </section>
+
+  <!-- ── SETTINGS PAGE ──────────────────────────────────────────── -->
+  <section id="page-settings" class="page">
+    <h2>⚙️ Settings</h2>
+    <p class="page-subtitle">Configure where alert emails are sent.</p>
+
+    <div id="settings-alert" class="alert"></div>
+
+    <div class="card">
+      <div class="settings-section">
+        <h4>📬 Your Email (Receiver)</h4>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">
+          All High-risk alerts and daily summaries will be sent to this address.
+          The agent sends FROM Geldium's business email — TO this address.
+        </p>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="receiver_name" placeholder="e.g. Collections Agent"/>
+        </div>
+        <div class="form-group">
+          <label>Your Email Address</label>
+          <input type="email" id="receiver_email" placeholder="e.g. agent@yourcompany.com"/>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="saveSettings()" id="save-btn">
+        <span id="save-spinner" class="spinner"></span>
+        💾 Save Settings
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>📤 Sender Info (Business)</h3>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7;">
+        The sender email and password are configured by the business in the
+        <code style="background:var(--bg); padding:2px 6px; border-radius:4px;">.env</code> file on the server.
+        Only the receiver email is configurable here.
+      </p>
+      <div id="sender-status" style="margin-top:12px; font-size:13px;"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── JAVASCRIPT ────────────────────────────────────────────────── -->
+<script>
+  // ── CONFIG ──────────────────────────────────────────────────────
+  // Change this to your live Render URL when deployed
+  const API_URL = "http://localhost:8000";
+
+  // ── NAVIGATION ──────────────────────────────────────────────────
+  function navigate(page) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    document.getElementById(`page-${page}`).classList.add("active");
+    event.currentTarget.classList.add("active");
+
+    // Load settings when settings page opens
+    if (page === "settings") loadSettings();
+  }
+
+  // ── API HEALTH CHECK ─────────────────────────────────────────────
+  async function checkHealth() {
+    const el = document.getElementById("api-status");
+    try {
+      const res = await fetch(`${API_URL}/`, { signal: AbortSignal.timeout(3000) });
+      if (res.ok) {
+        el.textContent = "✅ API Online";
+        el.className = "api-status online";
+      } else { throw new Error(); }
+    } catch {
+      el.textContent = "❌ API Offline";
+      el.className = "api-status offline";
+    }
+  }
+
+  // Check health on load and every 30 seconds
+  checkHealth();
+  setInterval(checkHealth, 30000);
+
+  // ── SHOW ALERT ────────────────────────────────────────────────────
+  function showAlert(id, message, type = "error") {
+    const el = document.getElementById(id);
+    el.textContent = message;
+    el.className = `alert alert-${type} show`;
+    setTimeout(() => el.classList.remove("show"), 5000);
+  }
+
+  // ── TIER HELPERS ──────────────────────────────────────────────────
+  function tierBadge(tier) {
+    const map = { High: "badge-high", Medium: "badge-medium", Low: "badge-low" };
+    const emoji = { High: "🔴", Medium: "🟡", Low: "🟢" };
+    return `<span class="badge ${map[tier]}">${emoji[tier]} ${tier}</span>`;
+  }
+
+  function tierColour(tier) {
+    return { High: "var(--high)", Medium: "var(--med)", Low: "var(--low)" }[tier] || "var(--primary)";
+  }
+
+  function tierBg(tier) {
+    return { High: "var(--high-bg)", Medium: "var(--med-bg)", Low: "var(--low-bg)" }[tier] || "var(--surface)";
+  }
+
+  // ── SINGLE PREDICT ────────────────────────────────────────────────
+  async function predictSingle() {
+    const btn     = document.getElementById("predict-btn");
+    const spinner = document.getElementById("predict-spinner");
+
+    // Collect form values
+    const data = {
+      Credit_Utilization:   parseFloat(document.getElementById("credit_util").value),
+      Missed_Payments:      parseInt(document.getElementById("missed_payments").value),
+      Credit_Score:         parseFloat(document.getElementById("credit_score").value),
+      Debt_to_Income_Ratio: parseFloat(document.getElementById("dti").value),
+      Income:               parseFloat(document.getElementById("income").value),
+      Loan_Balance:         parseFloat(document.getElementById("loan_balance").value),
+      Age:                  parseInt(document.getElementById("age").value),
+      Account_Tenure:       parseInt(document.getElementById("tenure").value)
+    };
+
+    // Basic validation
+    if (isNaN(data.Credit_Score) || isNaN(data.Income)) {
+      showAlert("single-alert", "Please fill in all fields correctly.", "error");
+      return;
+    }
+
+    btn.disabled = true;
+    spinner.style.display = "inline-block";
+
+    try {
+      const res = await fetch(`${API_URL}/predict`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || "Prediction failed");
+      }
+
+      const result = await res.json();
+      renderSingleResult(result);
+
+    } catch (e) {
+      showAlert("single-alert", `Error: ${e.message}`, "error");
+    } finally {
+      btn.disabled = false;
+      spinner.style.display = "none";
+    }
+  }
+
+  function renderSingleResult(r) {
+    const container = document.getElementById("single-result");
+    const colour    = tierColour(r.risk_tier);
+    const bg        = tierBg(r.risk_tier);
+
+    container.style.display = "block";
+    container.innerHTML = `
+      <div class="result-card" style="border-color:${colour}; background:${bg};">
+        <h3 style="color:${colour}; margin-bottom:16px;">Prediction Result</h3>
+
+        <div class="result-metrics">
+          <div class="metric">
+            <div class="m-label">Risk Tier</div>
+            <div class="m-value" style="color:${colour};">${r.risk_tier}</div>
+          </div>
+          <div class="metric">
+            <div class="m-label">Confidence</div>
+            <div class="m-value" style="color:var(--primary);">${(r.confidence*100).toFixed(1)}%</div>
+          </div>
+          <div class="metric">
+            <div class="m-label">High-Risk Score</div>
+            <div class="m-value" style="color:var(--primary);">${(r.risk_score*100).toFixed(1)}%</div>
+          </div>
+        </div>
+
+        <div class="intervention-box" style="background:${bg}; border-left:3px solid ${colour}; color:${colour};">
+          <strong>Recommended Action:</strong> ${r.intervention}
+        </div>
+
+        ${r.explanation ? `
+        <div class="explanation-box">
+          <strong>🤖 AI Explanation (Gemini):</strong>
+          ${r.explanation}
+        </div>` : ""}
+      </div>
+    `;
+    container.scrollIntoView({ behavior: "smooth" });
+  }
+
+  // ── BATCH PREDICT ─────────────────────────────────────────────────
+  let batchData = null;
+  const REQUIRED_COLS = [
+    "Credit_Utilization","Missed_Payments","Credit_Score",
+    "Debt_to_Income_Ratio","Income","Loan_Balance","Age","Account_Tenure"
+  ];
+
+  function handleDrop(e) {
+    e.preventDefault();
+    document.getElementById("upload-zone").classList.remove("drag-over");
+    const file = e.dataTransfer.files[0];
+    if (file) handleFile(file);
+  }
+
+  function handleFile(file) {
+    if (!file || !file.name.endsWith(".csv")) {
+      showAlert("batch-alert", "Please upload a CSV file.", "error");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target.result;
+      const rows = text.trim().split("\n");
+      const headers = rows[0].split(",").map(h => h.trim().replace(/"/g, ""));
+
+      // Check required columns
+      const missing = REQUIRED_COLS.filter(c => !headers.includes(c));
+      if (missing.length > 0) {
+        showAlert("batch-alert", `Missing columns: ${missing.join(", ")}`, "error");
+        return;
+      }
+
+      // Parse CSV into array of objects
+      batchData = rows.slice(1).filter(r => r.trim()).map(row => {
+        const vals = row.split(",").map(v => v.trim().replace(/"/g, ""));
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = vals[i]);
+        return {
+          Credit_Utilization:   parseFloat(obj.Credit_Utilization),
+          Missed_Payments:      parseInt(obj.Missed_Payments),
+          Credit_Score:         parseFloat(obj.Credit_Score),
+          Debt_to_Income_Ratio: parseFloat(obj.Debt_to_Income_Ratio),
+          Income:               parseFloat(obj.Income),
+          Loan_Balance:         parseFloat(obj.Loan_Balance),
+          Age:                  parseInt(obj.Age),
+          Account_Tenure:       parseInt(obj.Account_Tenure)
+        };
+      });
+
+      document.getElementById("file-info").style.display = "block";
+      document.getElementById("file-info").textContent =
+        `✅ ${file.name} loaded — ${batchData.length} customers ready`;
+      document.getElementById("batch-btn").style.display = "flex";
+      document.getElementById("upload-zone").querySelector("p").textContent =
+        `${file.name} — ${batchData.length} rows`;
+    };
+    reader.readAsText(file);
+  }
+
+  async function predictBatch() {
+    if (!batchData || batchData.length === 0) {
+      showAlert("batch-alert", "No data loaded. Please upload a CSV first.", "error");
+      return;
+    }
+
+    const btn     = document.getElementById("batch-btn");
+    const spinner = document.getElementById("batch-spinner");
+
+    btn.disabled = true;
+    spinner.style.display = "inline-block";
+
+    try {
+      const res = await fetch(`${API_URL}/predict/batch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ customers: batchData })
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || "Batch prediction failed");
+      }
+
+      const result = await res.json();
+      renderBatchResults(result);
+
+    } catch (e) {
+      showAlert("batch-alert", `Error: ${e.message}`, "error");
+    } finally {
+      btn.disabled = false;
+      spinner.style.display = "none";
+    }
+  }
+
+  function renderBatchResults(result) {
+    const preds  = result.predictions;
+    const counts = { High: 0, Medium: 0, Low: 0 };
+    preds.forEach(p => counts[p.risk_tier]++);
+
+    // Build table rows
+    const rows = preds.map(p => `
+      <tr>
+        <td>#${p.customer_index}</td>
+        <td>${tierBadge(p.risk_tier)}</td>
+        <td>${(p.risk_score * 100).toFixed(1)}%</td>
+        <td>${(p.confidence * 100).toFixed(1)}%</td>
+        <td style="font-size:12px; color:var(--muted);">${p.intervention}</td>
+      </tr>
+    `).join("");
+
+    document.getElementById("batch-results").style.display = "block";
+    document.getElementById("batch-results").innerHTML = `
+      <div class="summary-grid">
+        <div class="summary-item" style="background:var(--surface); border:1px solid var(--border);">
+          <div class="s-val" style="color:var(--primary);">${result.total}</div>
+          <div class="s-label">Total Scored</div>
+        </div>
+        <div class="summary-item" style="background:var(--high-bg);">
+          <div class="s-val" style="color:var(--high);">${counts.High}</div>
+          <div class="s-label">High Risk</div>
+        </div>
+        <div class="summary-item" style="background:var(--med-bg);">
+          <div class="s-val" style="color:var(--med);">${counts.Medium}</div>
+          <div class="s-label">Medium Risk</div>
+        </div>
+        <div class="summary-item" style="background:var(--low-bg);">
+          <div class="s-val" style="color:var(--low);">${counts.Low}</div>
+          <div class="s-label">Low Risk</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Results</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>#</th><th>Risk Tier</th><th>Risk Score</th><th>Confidence</th><th>Action</th></tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        <button class="btn btn-outline" style="margin-top:16px; width:auto;" onclick="downloadResults(${JSON.stringify(result).replace(/"/g, '&quot;')})">
+          ⬇️ Download Results CSV
+        </button>
+      </div>
+    `;
+
+    document.getElementById("batch-results").scrollIntoView({ behavior: "smooth" });
+  }
+
+  // ── DOWNLOAD TEMPLATE ─────────────────────────────────────────────
+  function downloadTemplate() {
+    const csv = "Credit_Utilization,Missed_Payments,Credit_Score,Debt_to_Income_Ratio,Income,Loan_Balance,Age,Account_Tenure\n0.85,2,480,0.6,45000,12000,34,3";
+    downloadCSV(csv, "geldium_template.csv");
+  }
+
+  // ── DOWNLOAD RESULTS ──────────────────────────────────────────────
+  function downloadResults(result) {
+    const headers = "customer_index,risk_tier,risk_score,confidence,intervention";
+    const rows = result.predictions.map(p =>
+      `${p.customer_index},${p.risk_tier},${p.risk_score},${p.confidence},"${p.intervention}"`
+    ).join("\n");
+    downloadCSV(`${headers}\n${rows}`, "geldium_predictions.csv");
+  }
+
+  function downloadCSV(content, filename) {
+    const blob = new Blob([content], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+  }
+
+  // ── SETTINGS ──────────────────────────────────────────────────────
+  async function loadSettings() {
+    try {
+      const res = await fetch(`${API_URL}/settings`);
+      if (!res.ok) return;
+      const data = await res.json();
+      document.getElementById("receiver_name").value  = data.receiver_name  || "";
+      document.getElementById("receiver_email").value = data.receiver_email || "";
+
+      // Show sender status
+      const senderEl = document.getElementById("sender-status");
+      senderEl.innerHTML = data.sender_configured
+        ? `<span style="color:var(--low);">✅ Sender email is configured and ready.</span>`
+        : `<span style="color:var(--high);">⚠️ Sender email not configured. Set GELDIUM_SENDER_EMAIL and GELDIUM_SENDER_PASSWORD in .env</span>`;
+
+    } catch (e) {
+      console.warn("Could not load settings:", e);
+    }
+  }
+
+  async function saveSettings() {
+    const btn     = document.getElementById("save-btn");
+    const spinner = document.getElementById("save-spinner");
+    const name    = document.getElementById("receiver_name").value.trim();
+    const email   = document.getElementById("receiver_email").value.trim();
+
+    if (!email) {
+      showAlert("settings-alert", "Please enter an email address.", "error");
+      return;
+    }
+
+    // Basic email format check
+    if (!email.includes("@") || !email.includes(".")) {
+      showAlert("settings-alert", "Please enter a valid email address.", "error");
+      return;
+    }
+
+    btn.disabled = true;
+    spinner.style.display = "inline-block";
+
+    try {
+      const res = await fetch(`${API_URL}/settings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ receiver_name: name, receiver_email: email })
+      });
+
+      if (!res.ok) throw new Error("Failed to save");
+
+      showAlert("settings-alert", "✅ Settings saved. The agent will send alerts to this email.", "success");
+
+    } catch (e) {
+      showAlert("settings-alert", `Error saving settings: ${e.message}`, "error");
+    } finally {
+      btn.disabled = false;
+      spinner.style.display = "none";
+    }
+  }
+</script>
+
+</body>
+</html>
