@@ -1,0 +1,113 @@
+# ─────────────────────────────────────────────────────────────
+# docker-compose.yml — Geldium AI Collections System
+# ─────────────────────────────────────────────────────────────
+# This file defines and runs BOTH services together:
+#
+#   Service 1: api       → FastAPI + HTML dashboard
+#   Service 2: scheduler → autonomous agent (runs every 24hrs)
+#
+# Both services:
+#   - Are built from the SAME Dockerfile (same image, different command)
+#   - Share the same .env file (same credentials)
+#   - Share a volume for logs (so audit logs persist)
+#   - Can talk to each other over an internal network
+#
+# WHY use the same image for both?
+#   The API and scheduler need the same code and packages.
+#   No point building two separate images. We just tell each
+#   container to run a different command at startup.
+# ─────────────────────────────────────────────────────────────
+
+services:
+
+  # ── SERVICE 1: FastAPI Backend + Dashboard ──────────────────
+  api:
+    # Build from the Dockerfile in the current directory
+    build: .
+
+    # Name the running container
+    container_name: geldium-api
+
+    # Override the default CMD from Dockerfile
+    # --reload = auto-restart when code changes (dev mode)
+    # Remove --reload for production
+    command: python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+    # Map container port 8000 → your machine's port 8000
+    # Format: "host_port:container_port"
+    # So http://localhost:8000 on your machine → hits the container
+    ports:
+      - "8000:8000"
+
+    # Load all variables from .env file into the container
+    # This is how GEMINI_API_KEY, GELDIUM_SENDER_EMAIL etc. get in
+    # The .env file is NEVER copied into the image (see .dockerignore)
+    # It's injected at runtime — much safer
+    env_file:
+      - .env
+
+    # Mount a shared volume for logs
+    # logs/ folder on your machine ↔ logs/ folder in container
+    # This means audit logs survive even if the container restarts
+    volumes:
+      - ./logs:/app/logs
+      - ./settings.json:/app/settings.json
+
+    # Restart policy — if the API crashes, Docker restarts it automatically
+    # unless-stopped = restart always EXCEPT when you manually stop it
+    restart: unless-stopped
+
+    # Health check — Docker pings /  every 30 seconds
+    # If it fails 3 times in a row, Docker marks the container unhealthy
+    # Other services can wait for this to be healthy before starting
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+
+  # ── SERVICE 2: Autonomous Agent Scheduler ───────────────────
+  scheduler:
+    # Same image as the API — different command
+    build: .
+
+    container_name: geldium-scheduler
+
+    # Override command to run the scheduler instead of uvicorn
+    command: python scheduler.py
+
+    # No ports needed — scheduler doesn't serve HTTP
+    # It just runs internally and sends emails
+
+    # Same .env file — needs GEMINI_API_KEY, email credentials etc.
+    env_file:
+      - .env
+
+    # Share the same logs volume as the API
+    # Both services write to the same logs/ folder
+    volumes:
+      - ./logs:/app/logs
+      - ./settings.json:/app/settings.json
+
+    # Wait for API to be healthy before starting scheduler
+    # Why? Scheduler imports agent.py which imports settings.py
+    # which might need the API to be ready in some configurations
+    depends_on:
+      api:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+
+# ── VOLUMES ───────────────────────────────────────────────────
+# Declare the named volumes used above
+# logs is a bind mount (./logs maps to a real folder on your machine)
+# so no need to declare it here — but settings.json needs to exist first
+
+# ── NETWORKS ──────────────────────────────────────────────────
+# Docker Compose automatically creates a network for all services
+# in this file. They can reach each other by service name.
+# e.g. from inside scheduler container: http://api:8000/settings
+# We don't need to define this manually — it's automatic.

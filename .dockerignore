@@ -1,0 +1,68 @@
+# ─────────────────────────────────────────────────────────────
+# .dockerignore — Geldium AI Collections System
+# ─────────────────────────────────────────────────────────────
+# Tells Docker what NOT to copy into the container image.
+# Works exactly like .gitignore but for Docker builds.
+#
+# WHY this matters:
+#   When Docker runs "COPY . ." in the Dockerfile, it copies
+#   everything in your project folder into the container.
+#   Without .dockerignore that includes logs, git history,
+#   cached files — making the image unnecessarily large and slow.
+#
+# CRITICAL: .env is excluded here — credentials must NEVER be
+#   baked into a Docker image. They're injected at runtime via
+#   env_file in docker-compose.yml. If .env was in the image,
+#   anyone who pulled the image could read your passwords.
+# ─────────────────────────────────────────────────────────────
+
+# ── SECRETS — NEVER in the image ────────────────────────────
+.env
+.env.*
+
+# ── GIT ──────────────────────────────────────────────────────
+.git
+.gitignore
+
+# ── PYTHON CACHE ─────────────────────────────────────────────
+# Python generates these automatically when it runs your code
+# No point copying them in — they'll be regenerated inside container
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ── LOGS ─────────────────────────────────────────────────────
+# Logs are generated at runtime and mounted as a volume
+# Don't bake them into the image
+logs/
+*.log
+
+# ── SETTINGS ─────────────────────────────────────────────────
+# settings.json is mounted as a volume at runtime
+# so it persists between container restarts
+# Don't bake it into the image
+settings.json
+
+# ── VIRTUAL ENVIRONMENTS ─────────────────────────────────────
+# If you have a venv folder — don't copy it in
+# Docker installs packages fresh from requirements.txt
+venv/
+.venv/
+env/
+
+# ── IDE AND OS FILES ─────────────────────────────────────────
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# ── DOCKER FILES THEMSELVES ───────────────────────────────────
+# No need to copy these into the image
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# ── README ───────────────────────────────────────────────────
+README.md
