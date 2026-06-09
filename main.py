@@ -389,6 +389,12 @@ FOLDER STRUCTURE EXPECTED:
 
 # FastAPI   → the web framework. Lets us define API endpoints with simple functions
 # HTTPException → lets us send proper error responses (like 404, 422, 500)
+import google.generativeai as genai
+import os
+
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+gemini = genai.GenerativeModel("gemini-pro")
+
 from fastapi import FastAPI, HTTPException
 
 # BaseModel → from Pydantic. Lets us define exactly what shape the incoming
@@ -525,6 +531,7 @@ class PredictionResponse(BaseModel):
     intervention:   str   # what action to take
     confidence:     float # how confident the model is (0.0 – 1.0)
     risk_score:     float # probability of being in the predicted tier
+    explanation:    str = ""
 
 
 # ── HELPER: MAP TIER TO INTERVENTION ─────────────────────────────────────────
@@ -568,6 +575,32 @@ def root():
 #   7. We return a clean JSON response
 
 @app.post("/predict", response_model=PredictionResponse, summary="Predict Customer Risk Tier")
+def get_gemini_explanation(customer, risk_tier, risk_score):
+    prompt = f"""
+    A customer has been assessed by our credit risk model.
+    
+    Customer Data:
+    - Credit Utilization: {customer.Credit_Utilization}
+    - Missed Payments: {customer.Missed_Payments}
+    - Credit Score: {customer.Credit_Score}
+    - Debt to Income Ratio: {customer.Debt_to_Income_Ratio}
+    - Income: {customer.Income}
+    - Loan Balance: {customer.Loan_Balance}
+    - Age: {customer.Age}
+    - Account Tenure: {customer.Account_Tenure}
+    
+    Risk Tier: {risk_tier}
+    Risk Score: {risk_score}
+    
+    In 2 sentences explain why this customer is {risk_tier} risk
+    and what action should be taken.
+    """
+    try:
+        response = gemini.generate_content(prompt)
+        return response.text
+    except Exception as e:
+        logger.warning(f"Gemini explanation failed: {e}")
+        return "AI explanation unavailable."
 def predict(customer: CustomerInput):
     """
     Send a single customer's data → receive their risk tier and recommended action.
@@ -622,11 +655,23 @@ def predict(customer: CustomerInput):
         )
 
         # STEP 8: Return the response
+        # return PredictionResponse(
+        #     risk_tier=risk_tier,
+        #     intervention=intervention,
+        #     confidence=round(confidence, 4),
+        #     risk_score=round(risk_score, 4)
+        # )
+
+        # STEP 8: Get Gemini explanation
+        explanation = get_gemini_explanation(customer, risk_tier, risk_score)
+
+        # STEP 9: Return the response
         return PredictionResponse(
             risk_tier=risk_tier,
             intervention=intervention,
             confidence=round(confidence, 4),
-            risk_score=round(risk_score, 4)
+            risk_score=round(risk_score, 4),
+            explanation=explanation
         )
 
     # Case: input data has something unexpected (wrong shape, bad values)
