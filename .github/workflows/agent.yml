@@ -1,0 +1,96 @@
+# ─────────────────────────────────────────────────────────────
+# .github/workflows/agent.yml
+# ─────────────────────────────────────────────────────────────
+# This file tells GitHub to run your agent automatically
+# every 24 hours on GitHub's own servers — completely free.
+#
+# HOW IT WORKS:
+#   1. GitHub reads this file from your repo
+#   2. At the scheduled time, GitHub spins up a fresh
+#      Ubuntu machine (called a "runner")
+#   3. It clones your repo onto that machine
+#   4. Installs your Python dependencies
+#   5. Runs agent.py
+#   6. The agent scores customers, sends emails, saves audit log
+#   7. GitHub machine shuts down — you pay nothing
+#
+# SCHEDULE:
+#   "0 8 * * *" = every day at 8:00 AM UTC
+#   That's 9:00 AM Lagos time (WAT = UTC+1)
+#   Change the time to whatever suits you.
+#
+# SECRETS:
+#   Your credentials (.env values) are stored as GitHub Secrets
+#   — encrypted, never visible in logs or code.
+#   You set them once in GitHub → Settings → Secrets.
+# ─────────────────────────────────────────────────────────────
+
+name: Geldium AI Agent — Daily Run
+
+on:
+  # ── SCHEDULED TRIGGER ──────────────────────────────────────
+  # Runs automatically every day at 8:00 AM UTC (9 AM Lagos)
+  # Cron format: minute hour day month weekday
+  # "0 8 * * *" = minute 0, hour 8, every day, every month, every weekday
+  schedule:
+    - cron: "0 8 * * *"
+
+  # ── MANUAL TRIGGER ─────────────────────────────────────────
+  # Lets you click "Run workflow" on GitHub to trigger it manually
+  # Useful for testing without waiting 24 hours
+  workflow_dispatch:
+
+
+jobs:
+  run-agent:
+    # Use GitHub's free Ubuntu machine
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ── STEP 1: Get your code ────────────────────────────────
+      # Checks out (downloads) your repo onto the GitHub runner
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── STEP 2: Set up Python ────────────────────────────────
+      # Installs Python 3.11 on the runner machine
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          # Cache pip downloads so repeated runs are faster
+          cache: "pip"
+
+      # ── STEP 3: Install dependencies ────────────────────────
+      # Installs everything from requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # ── STEP 4: Run the agent ────────────────────────────────
+      # Runs agent.py directly — no scheduler needed
+      # GitHub Actions IS the scheduler (cron handles timing)
+      # Credentials come from GitHub Secrets (set up below)
+      - name: Run Geldium AI Agent
+        env:
+          # These pull values from GitHub Secrets
+          # They're encrypted and never visible in logs
+          GELDIUM_SENDER_EMAIL:    ${{ secrets.GELDIUM_SENDER_EMAIL }}
+          GELDIUM_SENDER_PASSWORD: ${{ secrets.GELDIUM_SENDER_PASSWORD }}
+          GELDIUM_SENDER_NAME:     ${{ secrets.GELDIUM_SENDER_NAME }}
+          GELDIUM_RECEIVER_EMAIL:  ${{ secrets.GELDIUM_RECEIVER_EMAIL }}
+          GELDIUM_RECEIVER_NAME:   ${{ secrets.GELDIUM_RECEIVER_NAME }}
+          GEMINI_API_KEY:          ${{ secrets.GEMINI_API_KEY }}
+        run: python agent.py
+
+      # ── STEP 5: Upload audit log as artifact ────────────────
+      # Saves the audit CSV so you can download it from GitHub
+      # after each run — acts as your cloud audit trail
+      # Kept for 30 days automatically
+      - name: Upload audit log
+        uses: actions/upload-artifact@v4
+        if: always()   # run even if agent.py had errors
+        with:
+          name: audit-log-${{ github.run_number }}
+          path: logs/
+          retention-days: 30
