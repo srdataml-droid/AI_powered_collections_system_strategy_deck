@@ -8,6 +8,5 @@ openpyxl
 requests
 schedule
 python-dotenv
-google-generativeai
 google-genai
 streamlit
