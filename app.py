@@ -44,7 +44,8 @@ import json
 # The URL of your running FastAPI server.
 # Locally this is always http://localhost:8000
 # When deployed to cloud, you'll change this to your Render/Railway URL.
-API_URL = "https://geldium-api-3nnf.onrender.com"
+# API_URL = "https://geldium-api-3nnf.onrender.com"
+API_URL = "https://geldium-api-production.up.railway.app"
 
 # Streamlit page config — must be the FIRST streamlit call in the script
 st.set_page_config(
@@ -144,24 +145,59 @@ def tier_colour(tier: str) -> str:
     return {"High": "🔴", "Medium": "🟡", "Low": "🟢"}.get(tier, "⚪")
 
 
+# def display_prediction_card(result: dict):
+#     customer_id = result.get("Customer_ID", "Unknown")
+#     st.markdown(f"### Customer: `{customer_id}`")
+    
+#     tier       = result["risk_tier"]
+#     """
+#     Render a styled prediction result card.
+#     Takes the dict returned by the API and displays it nicely.
+#     """
+#     tier       = result["risk_tier"]
+#     confidence = result["confidence"]
+#     risk_score = result["risk_score"]
+#     action     = result["intervention"]
+#     colour     = tier_colour(tier)
+
+#     # st.metric() displays a big bold number with a label — good for KPIs
+#     col1, col2, col3 = st.columns(3)
+#     col1.metric("Risk Tier",   f"{colour} {tier}")
+#     col2.metric("Confidence",  f"{confidence * 100:.1f}%")
+#     col3.metric("High-Risk Score", f"{risk_score * 100:.1f}%")
+
+#     # st.info / st.warning / st.error → coloured alert boxes
+#     if tier == "High":
+#         st.error(f"**Recommended Action:** {action}")
+#     elif tier == "Medium":
+#         st.warning(f"**Recommended Action:** {action}")
+#     else:
+#         st.success(f"**Recommended Action:** {action}")
+
 def display_prediction_card(result: dict):
     """
     Render a styled prediction result card.
-    Takes the dict returned by the API and displays it nicely.
+    Docstring always goes FIRST — before any code.
     """
-    tier       = result["risk_tier"]
-    confidence = result["confidence"]
-    risk_score = result["risk_score"]
-    action     = result["intervention"]
-    colour     = tier_colour(tier)
+    # Pull all values from the API response dict
+    customer_id = result.get("Customer_ID", "Unknown")
+    tier        = result["risk_tier"]
+    confidence  = result["confidence"]
+    risk_score  = result["risk_score"]
+    action      = result["intervention"]
+    explanation = result.get("explanation", "")  # Gemini explanation
+    colour      = tier_colour(tier)
 
-    # st.metric() displays a big bold number with a label — good for KPIs
+    # Show customer ID header
+    st.markdown(f"### Customer: `{customer_id}`")
+
+    # Three KPI metrics side by side
     col1, col2, col3 = st.columns(3)
-    col1.metric("Risk Tier",   f"{colour} {tier}")
-    col2.metric("Confidence",  f"{confidence * 100:.1f}%")
-    col3.metric("High-Risk Score", f"{risk_score * 100:.1f}%")
+    col1.metric("Risk Tier",        f"{colour} {tier}")
+    col2.metric("Confidence",       f"{confidence * 100:.1f}%")
+    col3.metric("High-Risk Score",  f"{risk_score * 100:.1f}%")
 
-    # st.info / st.warning / st.error → coloured alert boxes
+    # Colour coded action box based on tier
     if tier == "High":
         st.error(f"**Recommended Action:** {action}")
     elif tier == "Medium":
@@ -169,7 +205,9 @@ def display_prediction_card(result: dict):
     else:
         st.success(f"**Recommended Action:** {action}")
 
-
+    # Show Gemini AI explanation if available
+    if explanation and explanation != "AI explanation unavailable.":
+        st.info(f"🤖 **AI Explanation:** {explanation}")
 # ── SIDEBAR ───────────────────────────────────────────────────────────────────
 # The sidebar stays visible on every page.
 # We use it for navigation and the API status indicator.
@@ -272,6 +310,14 @@ elif page == "🔍 Single Predict":
     with st.form("single_predict_form"):
 
         st.markdown("#### Customer Financial Details")
+        # Customer ID input
+        # This links the prediction back to a real customer in your database
+        # Format must match your data e.g. CUST0001
+        customer_id = st.text_input(
+            "Customer ID",
+            value="CUST0001",
+            help="Enter the customer ID exactly as it appears in your records e.g. CUST0001"
+        )
 
         # Two columns for a cleaner layout
         col1, col2 = st.columns(2)
@@ -326,6 +372,7 @@ elif page == "🔍 Single Predict":
     if submitted:
         # Build the dict matching the CustomerInput schema in main.py
         customer_data = {
+            "Customer_ID":          customer_id,
             "Credit_Utilization":   credit_util,
             "Missed_Payments":      int(missed_payments),
             "Credit_Score":         credit_score,
@@ -369,6 +416,7 @@ elif page == "📂 Batch Predict":
     st.markdown("Your CSV must have these exact column names:")
 
     example_df = pd.DataFrame([{
+        "Customer_ID":          "CUST0001",
         "Credit_Utilization":   0.85,
         "Missed_Payments":      2,
         "Credit_Score":         480.0,
@@ -412,6 +460,7 @@ elif page == "📂 Batch Predict":
 
         # Validate that all required columns are present
         required_cols = [
+            "Customer_ID",
             "Credit_Utilization", "Missed_Payments", "Credit_Score",
             "Debt_to_Income_Ratio", "Income", "Loan_Balance", "Age", "Account_Tenure"
         ]
