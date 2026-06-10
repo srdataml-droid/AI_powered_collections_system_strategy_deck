@@ -986,10 +986,12 @@ def get_intervention(tier: str) -> str:
 
 
 def get_gemini_explanation(customer: CustomerInput, risk_tier: str, risk_score: float) -> str:
-    """
-    Ask Gemini to explain in plain English why this customer got this risk tier.
-    Falls back to a safe message if Gemini is unavailable.
-    """
+    # """
+    # Ask Gemini to explain in plain English why this customer got this risk tier.
+    # Falls back to a safe message if Gemini is unavailable.
+    # """
+    if gemini_client is None:
+        return "AI explanation unavailable — Gemini key not configured."
     prompt = f"""
     A customer has been assessed by our credit risk model.
 
