@@ -416,7 +416,32 @@ import os
 
 # logging   → to print structured logs (better than print() in production)
 import logging
-
+import pandas as pd
+df = pd.read_excel("data.xlsx")
+@app.get("/customer/{customer_id}")
+def get_customer_prediction(customer_id: str):
+    # Look up customer in dataset
+    customer_row = df[df["Customer_ID"] == customer_id]
+    
+    if customer_row.empty:
+        raise HTTPException(status_code=404, detail=f"Customer {customer_id} not found")
+    
+    row = customer_row.iloc[0]
+    
+    # Build input and predict
+    customer = CustomerInput(
+        Customer_ID=customer_id,
+        Credit_Utilization=row["Credit_Utilization"],
+        Missed_Payments=row["Missed_Payments"],
+        Credit_Score=row["Credit_Score"],
+        Debt_to_Income_Ratio=row["Debt_to_Income_Ratio"],
+        Income=row["Income"],
+        Loan_Balance=row["Loan_Balance"],
+        Age=row["Age"],
+        Account_Tenure=row["Account_Tenure"]
+    )
+    
+    return predict(customer)
 # ── LOGGING SETUP ────────────────────────────────────────────────────────────
 # Why logging instead of print()?
 # logging gives us timestamps, severity levels (INFO, WARNING, ERROR),
