@@ -868,6 +868,7 @@ import pickle
 import os
 import logging
 import pandas as pd
+import requests
 
 
 # ── LOGGING SETUP ─────────────────────────────────────────────────────────────
@@ -886,12 +887,12 @@ DATA_PATH  = os.path.join(BASE_DIR, "data.xlsx")
 # API key comes from Railway environment variables (never hardcoded)
 # gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 # ── GEMINI SETUP ──────────────────────────────────────────────────────────────
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+# GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # TEMPORARY DEBUG — remove after fixing
-logger.info(f"GEMINI_API_KEY loaded: {'YES' if GEMINI_API_KEY else 'NO — KEY IS MISSING'}")
+# logger.info(f"GEMINI_API_KEY loaded: {'YES' if GEMINI_API_KEY else 'NO — KEY IS MISSING'}")
 
-gemini_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
+# gemini_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
 
 # ── LOAD MODEL AT STARTUP ─────────────────────────────────────────────────────
 # Runs once when server starts — not on every request
@@ -993,44 +994,70 @@ def get_intervention(tier: str) -> str:
     return interventions.get(tier, "⚪ Unknown tier — manual review recommended.")
 
 
-def get_gemini_explanation(customer: CustomerInput, risk_tier: str, risk_score: float) -> str:
-    # """
-    # Ask Gemini to explain in plain English why this customer got this risk tier.
-    # Falls back to a safe message if Gemini is unavailable.
-    # """
-    if gemini_client is None:
-        return "AI explanation unavailable — Gemini key not configured."
-    prompt = f"""
-    A customer has been assessed by our credit risk model.
+# def get_groq_explanation(customer: CustomerInput, risk_tier: str, risk_score: float) -> str:
+#     # """
+#     # Ask Groq to explain in plain English why this customer got this risk tier.
+#     # Falls back to a safe message if Groq is unavailable.
+#     # """
+#     # if groq_client is None:
+#         return "AI explanation unavailable — Groq key not configured."
+#     prompt = f"""
+#     A customer has been assessed by our credit risk model.
 
-    Customer Data:
-    - Credit Utilization:   {customer.Credit_Utilization}
-    - Missed Payments:      {customer.Missed_Payments}
-    - Credit Score:         {customer.Credit_Score}
-    - Debt to Income Ratio: {customer.Debt_to_Income_Ratio}
-    - Income:               {customer.Income}
-    - Loan Balance:         {customer.Loan_Balance}
-    - Age:                  {customer.Age}
-    - Account Tenure:       {customer.Account_Tenure}
+#     Customer Data:
+#     - Credit Utilization:   {customer.Credit_Utilization}
+#     - Missed Payments:      {customer.Missed_Payments}
+#     - Credit Score:         {customer.Credit_Score}
+#     - Debt to Income Ratio: {customer.Debt_to_Income_Ratio}
+#     - Income:               {customer.Income}
+#     - Loan Balance:         {customer.Loan_Balance}
+#     - Age:                  {customer.Age}
+#     - Account Tenure:       {customer.Account_Tenure}
 
+#     Risk Tier: {risk_tier}
+#     Risk Score: {risk_score}
+
+#     In 2 sentences, explain why this customer is {risk_tier} risk
+#     and what action the collections team should take.
+#     """
+    
+#     try:
+#         response = gemini_client.models.generate_content(
+#             model="llama-3.3-70b-versatile",
+#             contents=prompt
+#         )
+#         return response.text
+    
+#     except Exception as e:
+#         logger.warning(f"Gemini explanation failed: {e}")
+#         return "AI explanation unavailable."
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+def get_groq_explanation(customer, risk_tier, risk_score):
+    if not GROQ_API_KEY:
+        return "AI explanation unavailable."
+    
+    prompt = f"""A customer has been assessed by our credit risk model.
     Risk Tier: {risk_tier}
     Risk Score: {risk_score}
-
-    In 2 sentences, explain why this customer is {risk_tier} risk
-    and what action the collections team should take.
-    """
+    In 2 sentences, explain why and what action to take."""
     
     try:
-        response = gemini_client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=prompt
+        response = requests.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers={"Authorization": f"Bearer {GROQ_API_KEY}"},
+            json={
+                "model": "llama3-8b-8192",
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.7
+            },
+            timeout=10
         )
-        return response.text
+        return response.json()["choices"][0]["message"]["content"]
     except Exception as e:
-        logger.warning(f"Gemini explanation failed: {e}")
+        logger.warning(f"Groq failed: {e}")
         return "AI explanation unavailable."
-
-
 # ── ENDPOINTS ─────────────────────────────────────────────────────────────────
 
 # ENDPOINT 1: Health Check
@@ -1083,8 +1110,8 @@ def predict(customer: CustomerInput):
         # Get business action recommendation
         intervention = get_intervention(risk_tier)
 
-        # Get Gemini AI explanation
-        explanation = get_gemini_explanation(customer, risk_tier, risk_score)
+        # Get Groq AI explanation
+        explanation = get_groq_explanation(customer, risk_tier, risk_score)
 
         logger.info(
             f"Prediction: {customer.Customer_ID} → {risk_tier} | "
