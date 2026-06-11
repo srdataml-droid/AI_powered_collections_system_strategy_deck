@@ -365,7 +365,7 @@ from urllib import response
 
 from dotenv import load_dotenv
 load_dotenv()   # MUST be first — loads .env before any os.getenv() calls
-
+import requests
 import os
 import pickle
 import logging
@@ -405,23 +405,23 @@ MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
 DATA_PATH  = os.path.join(BASE_DIR, "data.xlsx")
 
 
-# ── GEMINI SETUP ──────────────────────────────────────────────────────────────
-# Configure Gemini with the API key from .env
+# ── GROQ SETUP ──────────────────────────────────────────────────────────────
+# Configure Groq with the API key from .env
 # genai.configure() must be called once before any model calls
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")  # <-- Make sure this matches your .env variable name
 
-if GEMINI_API_KEY:
-    # genai.configure(api_key=GEMINI_API_KEY)
-    client = genai.Client(api_key=GEMINI_API_KEY)
+if GROQ_API_KEY:
+    # genai.configure(api_key=GROQ_API_KEY)
+    # client = genai.Client(api_key=GROQ_API_KEY)
     # gemini_model = client("gemini-1.5-flash")
     
     # gemini-1.5-flash = free tier, fast, good at explanation tasks
-    logger.info("✅ Gemini AI configured.")
+    logger.info("✅ Groq AI configured.")
 else:
     gemini_model = None
     logger.warning(
-        "GEMINI_API_KEY not set in .env. "
+        "GROQ_API_KEY not set in .env. "
         "Agent will run without AI explanations."
     )
 
@@ -463,7 +463,7 @@ def generate_explanation(customer_row: pd.Series, risk_score: float) -> str:
     fallback explanation built from the numbers directly — so the
     agent never crashes just because AI explanation failed.
     """
-
+    
     # Build a fallback explanation using raw numbers
     # This runs if Gemini fails or isn't configured
     fallback = (
@@ -475,7 +475,7 @@ def generate_explanation(customer_row: pd.Series, risk_score: float) -> str:
         f"These combined factors place them at {risk_score*100:.0f}% delinquency risk."
     )
 
-    if not client:
+    if not GROQ_API_KEY:
         return fallback
 
     # Build the prompt — specific, short, business-focused
@@ -504,17 +504,34 @@ Do not use bullet points. Do not start with "This customer".
     try:
         # response = gemini_model.generate_content(prompt)
         # explanation = response.text.strip()
-        response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=prompt
-    )
-        explanation = response.text.strip()
-        logger.info("✅ Gemini explanation generated.")
+        response = requests.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {GROQ_API_KEY}",
+                "Content-Type": "application/json"
+            },
+            json={
+                "model": "llama-3.1-8b-instant",
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.3,
+                "max_tokens": 150
+            },
+            timeout=8
+        )
+        response.raise_for_status()
+        explanation = response.json()["choices"][0]["message"]["content"].strip()
+        logger.info("✅ Groq explanation generated.")
         return explanation
 
-    # Case: Gemini API rate limit hit (free tier has limits)
+    except requests.exceptions.HTTPError as e:
+        if response.status_code == 429:
+            logger.warning("Groq rate limit hit")
+            return fallback + " (AI explanation: rate limit reached)"
+        logger.error(f"Groq API error: {e}")
+        return fallback
+    # Case: Groq API rate limit hit (free tier has limits)
     except Exception as e:
-        logger.warning(f"Gemini explanation failed: {e}. Using fallback.")
+        logger.warning(f"Groq explanation failed: {e}. Using fallback.")
         return fallback
 
 
