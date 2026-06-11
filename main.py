@@ -1061,38 +1061,53 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 #         return "AI explanation unavailable."
 
 
-def generate_explanation(customer_row, risk_score: float) -> str:
-    """Call Groq API for AI explanation. Falls back to rule-based if API fails."""
+def generate_explanation(customer, risk_score: float) -> str:
+    """
+    Generate AI explanation for a customer's risk assessment.
+    Works with both Pydantic CustomerInput objects and pandas Series/dicts.
+    """
     
-    # ── FALLBACK (always ready) ──
+    # ── UNIVERSAL FIELD ACCESS ──
+    def get(field: str):
+        if hasattr(customer, field):
+            return getattr(customer, field)  # Pydantic model (dot notation)
+        return customer[field]              # dict or pandas Series (bracket)
+    
+    # ── FALLBACK EXPLANATION ──
+    credit_util = get('Credit_Utilization')
+    missed = int(get('Missed_Payments'))
+    score = get('Credit_Score')
+    dti = get('Debt_to_Income_Ratio')
+    income = get('Income')
+    balance = get('Loan_Balance')
+    age = int(get('Age'))
+    tenure = int(get('Account_Tenure'))
+    
     fallback = (
-        f"This customer has a credit utilization of "
-        f"{customer_row['Credit_Utilization']*100:.0f}%, "
-        f"{int(customer_row['Missed_Payments'])} missed payment(s), "
-        f"a credit score of {customer_row['Credit_Score']:.0f}, "
-        f"and a debt-to-income ratio of {customer_row['Debt_to_Income_Ratio']:.2f}. "
+        f"This customer has a credit utilization of {credit_util*100:.0f}%, "
+        f"{missed} missed payment(s), a credit score of {score:.0f}, "
+        f"and a debt-to-income ratio of {dti:.2f}. "
         f"These combined factors place them at {risk_score*100:.0f}% delinquency risk."
     )
     
     if not GROQ_API_KEY:
-        logger.warning("GROQ_API_KEY not set")
         return fallback
 
-    # ── GROQ API CALL ──
+    # ── GROQ PROMPT ──
     prompt = f"""You are a financial risk analyst at Geldium Finance.
 
 Customer financial data:
-- Credit Utilization: {customer_row['Credit_Utilization']*100:.0f}%
-- Missed Payments: {int(customer_row['Missed_Payments'])} in last 6 months
-- Credit Score: {customer_row['Credit_Score']:.0f}
-- Debt-to-Income Ratio: {customer_row['Debt_to_Income_Ratio']:.2f}
-- Annual Income: £{customer_row['Income']:,.0f}
-- Loan Balance: £{customer_row['Loan_Balance']:,.0f}
-- Age: {int(customer_row['Age'])}
-- Account Tenure: {int(customer_row['Account_Tenure'])} years
+- Credit Utilization: {credit_util*100:.0f}%
+- Missed Payments: {missed} in last 6 months
+- Credit Score: {score:.0f}
+- Debt-to-Income Ratio: {dti:.2f}
+- Annual Income: £{income:,.0f}
+- Loan Balance: £{balance:,.0f}
+- Age: {age}
+- Account Tenure: {tenure} years
 - Overall Delinquency Risk Score: {risk_score*100:.0f}%
 
-Write a 2-3 sentence plain-English explanation of why this customer is high risk. 
+Write a 2-3 sentence plain-English explanation of why this customer is at risk.
 Focus on the most concerning factors. Write for a collections agent.
 Do not use bullet points. Do not start with "This customer"."""
 
@@ -1112,32 +1127,23 @@ Do not use bullet points. Do not start with "This customer"."""
             timeout=8
         )
         
-        # ── DEBUG: Log the raw response ──
         response_json = response.json()
-        logger.info(f"Groq raw response: {response_json}")
         
-        # ── Check for errors ──
         if "error" in response_json:
             logger.error(f"Groq API error: {response_json['error']}")
-            return fallback + f" (AI error: {response_json['error'].get('message', 'unknown')})"
+            return fallback
         
-        # ── Parse success response ──
         if "choices" not in response_json:
-            logger.error(f"Groq unexpected response structure: {list(response_json.keys())}")
-            return fallback + " (AI error: unexpected response format)"
+            logger.error(f"Groq unexpected response: {response_json}")
+            return fallback
         
         explanation = response_json["choices"][0]["message"]["content"].strip()
         logger.info("✅ Groq explanation generated.")
         return explanation
 
-    except requests.exceptions.HTTPError as e:
-        logger.error(f"Groq HTTP error: {e}")
-        return fallback + f" (HTTP error: {e})"
-        
     except Exception as e:
-        logger.warning(f"Groq explanation failed: {e}")
+        logger.warning(f"Groq failed: {e}")
         return fallback
-
 # ── ENDPOINTS ─────────────────────────────────────────────────────────────────
 
 # ENDPOINT 1: Health Check
@@ -1198,6 +1204,8 @@ def predict(customer: CustomerInput):
             f"Confidence: {confidence:.2f} | Risk score: {risk_score:.2f}"
         )
 
+        explanation = generate_explanation(customer, risk_score)
+
         return PredictionResponse(
             Customer_ID=customer.Customer_ID,
             risk_tier=risk_tier,
@@ -1221,6 +1229,7 @@ def predict(customer: CustomerInput):
 # No manual data entry needed — just the customer ID
 @app.get("/customer/{customer_id}", summary="Predict by Customer ID")
 def get_customer_prediction(customer_id: str):
+    
     """Look up a customer by ID and run prediction automatically."""
     if df is None:
         raise HTTPException(status_code=500, detail="Dataset not loaded.")
@@ -1244,6 +1253,8 @@ def get_customer_prediction(customer_id: str):
         Age=int(row["Age"]),
         Account_Tenure=int(row["Account_Tenure"])
     )
+
+    # explanation = generate_explanation(row, risk_score)
 
     # Reuse the predict function — no code duplication
     return predict(customer)
