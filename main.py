@@ -870,6 +870,29 @@ import logging
 import pandas as pd
 import requests
 
+from fastapi.middleware.cors import CORSMiddleware  # ← ADD THIS
+
+# ... your existing imports ...
+
+app = FastAPI(
+    title="Geldium AI Collections API",
+    description="Predicts delinquency risk tier and recommends interventions.",
+    version="1.0.0"
+)
+
+# ── CORS CONFIGURATION ───────────────────────────────────────────────────────
+# Allow your frontend to call the API from any origin (safe for development)
+# In production, restrict this to your actual frontend domain
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],           # ← Allows ALL domains (use specific domain in prod)
+    allow_credentials=True,
+    allow_methods=["*"],           # ← Allows GET, POST, PUT, DELETE, etc.
+    allow_headers=["*"],           # ← Allows all headers
+)
+
+# ... rest of your code ...
 
 # ── LOGGING SETUP ─────────────────────────────────────────────────────────────
 # Timestamps + severity levels on every log line

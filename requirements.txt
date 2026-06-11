@@ -11,3 +11,4 @@ python-dotenv
 google-genai
 streamlit
 python-multipart
+fastapi-cors 
