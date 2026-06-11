@@ -1034,30 +1034,110 @@ def get_intervention(tier: str) -> str:
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-def get_groq_explanation(customer, risk_tier, risk_score):
+# def get_groq_explanation(customer, risk_tier, risk_score):
+
+#     if not GROQ_API_KEY:
+#         return "AI explanation unavailable."
+    
+#     prompt = f"""A customer has been assessed by our credit risk model.
+#     Risk Tier: {risk_tier}
+#     Risk Score: {risk_score}
+#     In 2 sentences, explain why and what action to take."""
+    
+#     try:
+#         response = requests.post(
+#             "https://api.groq.com/openai/v1/chat/completions",
+#             headers={"Authorization": f"Bearer {GROQ_API_KEY}"},
+#             json={
+#                 "model": "llama3-8b-8192",
+#                 "messages": [{"role": "user", "content": prompt}],
+#                 "temperature": 0.7
+#             },
+#             timeout=10
+#         )
+#         return response.json()["choices"][0]["message"]["content"]
+#     except Exception as e:
+#         logger.warning(f"Groq failed: {e}")
+#         return "AI explanation unavailable."
+
+
+def generate_explanation(customer_row, risk_score: float) -> str:
+    """Call Groq API for AI explanation. Falls back to rule-based if API fails."""
+    
+    # ── FALLBACK (always ready) ──
+    fallback = (
+        f"This customer has a credit utilization of "
+        f"{customer_row['Credit_Utilization']*100:.0f}%, "
+        f"{int(customer_row['Missed_Payments'])} missed payment(s), "
+        f"a credit score of {customer_row['Credit_Score']:.0f}, "
+        f"and a debt-to-income ratio of {customer_row['Debt_to_Income_Ratio']:.2f}. "
+        f"These combined factors place them at {risk_score*100:.0f}% delinquency risk."
+    )
+    
     if not GROQ_API_KEY:
-        return "AI explanation unavailable."
-    
-    prompt = f"""A customer has been assessed by our credit risk model.
-    Risk Tier: {risk_tier}
-    Risk Score: {risk_score}
-    In 2 sentences, explain why and what action to take."""
-    
+        logger.warning("GROQ_API_KEY not set")
+        return fallback
+
+    # ── GROQ API CALL ──
+    prompt = f"""You are a financial risk analyst at Geldium Finance.
+
+Customer financial data:
+- Credit Utilization: {customer_row['Credit_Utilization']*100:.0f}%
+- Missed Payments: {int(customer_row['Missed_Payments'])} in last 6 months
+- Credit Score: {customer_row['Credit_Score']:.0f}
+- Debt-to-Income Ratio: {customer_row['Debt_to_Income_Ratio']:.2f}
+- Annual Income: £{customer_row['Income']:,.0f}
+- Loan Balance: £{customer_row['Loan_Balance']:,.0f}
+- Age: {int(customer_row['Age'])}
+- Account Tenure: {int(customer_row['Account_Tenure'])} years
+- Overall Delinquency Risk Score: {risk_score*100:.0f}%
+
+Write a 2-3 sentence plain-English explanation of why this customer is high risk. 
+Focus on the most concerning factors. Write for a collections agent.
+Do not use bullet points. Do not start with "This customer"."""
+
     try:
         response = requests.post(
             "https://api.groq.com/openai/v1/chat/completions",
-            headers={"Authorization": f"Bearer {GROQ_API_KEY}"},
-            json={
-                "model": "llama3-8b-8192",
-                "messages": [{"role": "user", "content": prompt}],
-                "temperature": 0.7
+            headers={
+                "Authorization": f"Bearer {GROQ_API_KEY}",
+                "Content-Type": "application/json"
             },
-            timeout=10
+            json={
+                "model": "llama-3.1-8b-instant",
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.3,
+                "max_tokens": 150
+            },
+            timeout=8
         )
-        return response.json()["choices"][0]["message"]["content"]
+        
+        # ── DEBUG: Log the raw response ──
+        response_json = response.json()
+        logger.info(f"Groq raw response: {response_json}")
+        
+        # ── Check for errors ──
+        if "error" in response_json:
+            logger.error(f"Groq API error: {response_json['error']}")
+            return fallback + f" (AI error: {response_json['error'].get('message', 'unknown')})"
+        
+        # ── Parse success response ──
+        if "choices" not in response_json:
+            logger.error(f"Groq unexpected response structure: {list(response_json.keys())}")
+            return fallback + " (AI error: unexpected response format)"
+        
+        explanation = response_json["choices"][0]["message"]["content"].strip()
+        logger.info("✅ Groq explanation generated.")
+        return explanation
+
+    except requests.exceptions.HTTPError as e:
+        logger.error(f"Groq HTTP error: {e}")
+        return fallback + f" (HTTP error: {e})"
+        
     except Exception as e:
-        logger.warning(f"Groq failed: {e}")
-        return "AI explanation unavailable."
+        logger.warning(f"Groq explanation failed: {e}")
+        return fallback
+
 # ── ENDPOINTS ─────────────────────────────────────────────────────────────────
 
 # ENDPOINT 1: Health Check
@@ -1111,7 +1191,7 @@ def predict(customer: CustomerInput):
         intervention = get_intervention(risk_tier)
 
         # Get Groq AI explanation
-        explanation = get_groq_explanation(customer, risk_tier, risk_score)
+        explanation = generate_explanation(customer, risk_score)
 
         logger.info(
             f"Prediction: {customer.Customer_ID} → {risk_tier} | "
