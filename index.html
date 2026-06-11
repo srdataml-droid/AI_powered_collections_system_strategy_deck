@@ -265,6 +265,12 @@
     }
     .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
     /* ── RESULT CARD ──────────────────────────────────────────── */
     .result-card {
       border-radius: var(--radius);
@@ -311,6 +317,28 @@
 
     .explanation-box strong { color: var(--text); display: block; margin-bottom: 6px; }
 
+    /* ── CUSTOMER LOOKUP ──────────────────────────────────────── */
+    .lookup-box {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .lookup-box input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .lookup-box input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
     /* ── TABLE ────────────────────────────────────────────────── */
     .table-wrap { overflow-x: auto; margin-top: 16px; }
 
@@ -350,6 +378,28 @@
     .badge-high   { background: var(--high-bg); color: var(--high); }
     .badge-medium { background: var(--med-bg);  color: var(--med);  }
     .badge-low    { background: var(--low-bg);  color: var(--low);  }
+
+    /* ── FILTER TABS ──────────────────────────────────────────── */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .filter-tab {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .filter-tab:hover { border-color: var(--primary); color: var(--primary); }
+    .filter-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
 
     /* ── FILE UPLOAD ──────────────────────────────────────────── */
     .upload-zone {
@@ -417,6 +467,21 @@
     .settings-section { margin-bottom: 28px; }
     .settings-section h4 { font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
 
+    /* ── RAW JSON ─────────────────────────────────────────────── */
+    .raw-json {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'SF Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      overflow-x: auto;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-top: 16px;
+    }
+
     /* ── SCROLLBAR ────────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
@@ -437,10 +502,11 @@
 
   <hr class="sidebar-divider"/>
 
-  <button class="nav-item active" onclick="navigate('home')">🏠 &nbsp;Home</button>
-  <button class="nav-item" onclick="navigate('single')">🔍 &nbsp;Single Predict</button>
-  <button class="nav-item" onclick="navigate('batch')">📂 &nbsp;Batch Predict</button>
-  <button class="nav-item" onclick="navigate('settings')">⚙️ &nbsp;Settings</button>
+  <button class="nav-item active" onclick="navigate('home', this)">🏠 &nbsp;Home</button>
+  <button class="nav-item" onclick="navigate('single', this)">🔍 &nbsp;Single Predict</button>
+  <button class="nav-item" onclick="navigate('lookup', this)">🔎 &nbsp;Customer Lookup</button>
+  <button class="nav-item" onclick="navigate('batch', this)">📂 &nbsp;Batch Predict</button>
+  <button class="nav-item" onclick="navigate('settings', this)">⚙️ &nbsp;Settings</button>
 
   <hr class="sidebar-divider"/>
 
@@ -476,7 +542,7 @@
         <p style="font-size:13px; color:var(--muted); line-height:1.7;">
           Trained on real Geldium customer data using a Random Forest model.
           Scores customers across 8 financial features to predict delinquency risk.
-          Each prediction includes an AI-generated explanation powered by Gemini.
+          Each prediction includes an AI-generated explanation powered by Groq LLM.
         </p>
       </div>
       <div class="card">
@@ -514,6 +580,11 @@
     <div id="single-alert" class="alert"></div>
 
     <div class="card">
+      <div class="form-group">
+        <label>Customer ID</label>
+        <input type="text" id="single_customer_id" placeholder="e.g. CUST0001" value="CUST0001"/>
+      </div>
+
       <div class="grid-2">
 
         <div>
@@ -576,8 +647,28 @@
       </button>
     </div>
 
-    <!-- Result appears here -->
     <div id="single-result" style="display:none;"></div>
+  </section>
+
+  <!-- ── CUSTOMER LOOKUP PAGE ─────────────────────────────────── -->
+  <section id="page-lookup" class="page">
+    <h2>🔎 Customer Lookup</h2>
+    <p class="page-subtitle">Look up a customer by ID from the dataset — no manual data entry needed.</p>
+
+    <div id="lookup-alert" class="alert"></div>
+
+    <div class="card">
+      <div class="lookup-box">
+        <input type="text" id="lookup_customer_id" placeholder="Enter Customer ID e.g. CUST0001" value="CUST0001"/>
+        <button class="btn btn-primary" onclick="lookupCustomer()" id="lookup-btn" style="width:auto;">
+          <span id="lookup-spinner" class="spinner"></span>
+          🔍 Look Up
+        </button>
+      </div>
+      <p style="font-size:12px; color:var(--muted);">Searches the loaded dataset and runs prediction automatically.</p>
+    </div>
+
+    <div id="lookup-result" style="display:none;"></div>
   </section>
 
   <!-- ── BATCH PREDICT PAGE ─────────────────────────────────────── -->
@@ -589,19 +680,19 @@
 
     <div class="card">
       <h3>Required CSV Format</h3>
-      <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">Your CSV must have these exact column names:</p>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">Your CSV must have these exact column names. <strong>Customer_ID</strong> is optional but recommended:</p>
       <div style="overflow-x:auto;">
         <table>
           <thead>
             <tr>
-              <th>Credit_Utilization</th><th>Missed_Payments</th><th>Credit_Score</th>
+              <th>Customer_ID</th><th>Credit_Utilization</th><th>Missed_Payments</th><th>Credit_Score</th>
               <th>Debt_to_Income_Ratio</th><th>Income</th><th>Loan_Balance</th>
               <th>Age</th><th>Account_Tenure</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>0.85</td><td>2</td><td>480</td>
+              <td>CUST0001</td><td>0.85</td><td>2</td><td>480</td>
               <td>0.6</td><td>45000</td><td>12000</td>
               <td>34</td><td>3</td>
             </tr>
@@ -669,8 +760,7 @@
       <h3>📤 Sender Info (Business)</h3>
       <p style="font-size:13px; color:var(--muted); line-height:1.7;">
         The sender email and password are configured by the business in the
-        <code style="background:var(--bg); padding:2px 6px; border-radius:4px;">.env</code> file on the server.
-        Only the receiver email is configurable here.
+        server environment variables. Only the receiver email is configurable here.
       </p>
       <div id="sender-status" style="margin-top:12px; font-size:13px;"></div>
     </div>
@@ -681,17 +771,15 @@
 <!-- ── JAVASCRIPT ────────────────────────────────────────────────── -->
 <script>
   // ── CONFIG ──────────────────────────────────────────────────────
-  // Change this to your live Render URL when deployed
   const API_URL = "https://geldium-api-production.up.railway.app";
 
   // ── NAVIGATION ──────────────────────────────────────────────────
-  function navigate(page) {
+  function navigate(page, el) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
     document.getElementById(`page-${page}`).classList.add("active");
-    event.currentTarget.classList.add("active");
+    if (el) el.classList.add("active");
 
-    // Load settings when settings page opens
     if (page === "settings") loadSettings();
   }
 
@@ -701,7 +789,8 @@
     try {
       const res = await fetch(`${API_URL}/`, { signal: AbortSignal.timeout(3000) });
       if (res.ok) {
-        el.textContent = "✅ API Online";
+        const data = await res.json();
+        el.textContent = `✅ API Online (${data.ai_provider || 'no AI'})`;
         el.className = "api-status online";
       } else { throw new Error(); }
     } catch {
@@ -709,12 +798,10 @@
       el.className = "api-status offline";
     }
   }
-
-  // Check health on load and every 30 seconds
   checkHealth();
   setInterval(checkHealth, 30000);
 
-  // ── SHOW ALERT ────────────────────────────────────────────────────
+  // ── ALERTS ───────────────────────────────────────────────────────
   function showAlert(id, message, type = "error") {
     const el = document.getElementById(id);
     el.textContent = message;
@@ -722,11 +809,11 @@
     setTimeout(() => el.classList.remove("show"), 5000);
   }
 
-  // ── TIER HELPERS ──────────────────────────────────────────────────
+  // ── TIER HELPERS ─────────────────────────────────────────────────
   function tierBadge(tier) {
     const map = { High: "badge-high", Medium: "badge-medium", Low: "badge-low" };
     const emoji = { High: "🔴", Medium: "🟡", Low: "🟢" };
-    return `<span class="badge ${map[tier]}">${emoji[tier]} ${tier}</span>`;
+    return `<span class="badge ${map[tier] || ''}">${emoji[tier] || '⚪'} ${tier}</span>`;
   }
 
   function tierColour(tier) {
@@ -737,64 +824,19 @@
     return { High: "var(--high-bg)", Medium: "var(--med-bg)", Low: "var(--low-bg)" }[tier] || "var(--surface)";
   }
 
-  // ── SINGLE PREDICT ────────────────────────────────────────────────
-  async function predictSingle() {
-    const btn     = document.getElementById("predict-btn");
-    const spinner = document.getElementById("predict-spinner");
-
-    // Collect form values
-    const data = {
-      Credit_Utilization:   parseFloat(document.getElementById("credit_util").value),
-      Missed_Payments:      parseInt(document.getElementById("missed_payments").value),
-      Credit_Score:         parseFloat(document.getElementById("credit_score").value),
-      Debt_to_Income_Ratio: parseFloat(document.getElementById("dti").value),
-      Income:               parseFloat(document.getElementById("income").value),
-      Loan_Balance:         parseFloat(document.getElementById("loan_balance").value),
-      Age:                  parseInt(document.getElementById("age").value),
-      Account_Tenure:       parseInt(document.getElementById("tenure").value)
-    };
-
-    // Basic validation
-    if (isNaN(data.Credit_Score) || isNaN(data.Income)) {
-      showAlert("single-alert", "Please fill in all fields correctly.", "error");
-      return;
-    }
-
-    btn.disabled = true;
-    spinner.style.display = "inline-block";
-
-    try {
-      const res = await fetch(`${API_URL}/predict`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.detail || "Prediction failed");
-      }
-
-      const result = await res.json();
-      renderSingleResult(result);
-
-    } catch (e) {
-      showAlert("single-alert", `Error: ${e.message}`, "error");
-    } finally {
-      btn.disabled = false;
-      spinner.style.display = "none";
-    }
-  }
-
-  function renderSingleResult(r) {
-    const container = document.getElementById("single-result");
-    const colour    = tierColour(r.risk_tier);
-    const bg        = tierBg(r.risk_tier);
+  // ── RENDER RESULT CARD (shared) ─────────────────────────────────
+  function renderResultCard(r, containerId, title = "Prediction Result") {
+    const container = document.getElementById(containerId);
+    const colour = tierColour(r.risk_tier);
+    const bg = tierBg(r.risk_tier);
 
     container.style.display = "block";
     container.innerHTML = `
       <div class="result-card" style="border-color:${colour}; background:${bg};">
-        <h3 style="color:${colour}; margin-bottom:16px;">Prediction Result</h3>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <h3 style="color:${colour};">${title}</h3>
+          ${r.Customer_ID ? `<code style="background:var(--bg); padding:4px 10px; border-radius:4px; font-size:12px;">${r.Customer_ID}</code>` : ''}
+        </div>
 
         <div class="result-metrics">
           <div class="metric">
@@ -815,17 +857,105 @@
           <strong>Recommended Action:</strong> ${r.intervention}
         </div>
 
-        ${r.explanation ? `
+        ${r.explanation && r.explanation !== "AI explanation unavailable." ? `
         <div class="explanation-box">
-          <strong>🤖 AI Explanation (Gemini):</strong>
+          <strong>🤖 AI Explanation (Groq):</strong>
           ${r.explanation}
-        </div>` : ""}
+        </div>` : ''}
+
+        <details style="margin-top:16px;">
+          <summary style="cursor:pointer; color:var(--muted); font-size:12px;">🔧 Raw API Response</summary>
+          <pre class="raw-json">${JSON.stringify(r, null, 2)}</pre>
+        </details>
       </div>
     `;
     container.scrollIntoView({ behavior: "smooth" });
   }
 
-  // ── BATCH PREDICT ─────────────────────────────────────────────────
+  // ── SINGLE PREDICT ───────────────────────────────────────────────
+  async function predictSingle() {
+    const btn = document.getElementById("predict-btn");
+    const spinner = document.getElementById("predict-spinner");
+
+    const data = {
+      Customer_ID:          document.getElementById("single_customer_id").value || "UNKNOWN",
+      Credit_Utilization:   parseFloat(document.getElementById("credit_util").value),
+      Missed_Payments:      parseInt(document.getElementById("missed_payments").value),
+      Credit_Score:         parseFloat(document.getElementById("credit_score").value),
+      Debt_to_Income_Ratio: parseFloat(document.getElementById("dti").value),
+      Income:               parseFloat(document.getElementById("income").value),
+      Loan_Balance:         parseFloat(document.getElementById("loan_balance").value),
+      Age:                  parseInt(document.getElementById("age").value),
+      Account_Tenure:       parseInt(document.getElementById("tenure").value)
+    };
+
+    if (Object.values(data).some(v => isNaN(v) && typeof v !== 'string')) {
+      showAlert("single-alert", "Please fill in all numeric fields correctly.", "error");
+      return;
+    }
+
+    btn.disabled = true;
+    spinner.style.display = "inline-block";
+
+    try {
+      const res = await fetch(`${API_URL}/predict`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || "Prediction failed");
+      }
+
+      const result = await res.json();
+      renderResultCard(result, "single-result");
+
+    } catch (e) {
+      showAlert("single-alert", `Error: ${e.message}`, "error");
+    } finally {
+      btn.disabled = false;
+      spinner.style.display = "none";
+    }
+  }
+
+  // ── CUSTOMER LOOKUP ──────────────────────────────────────────────
+  async function lookupCustomer() {
+    const btn = document.getElementById("lookup-btn");
+    const spinner = document.getElementById("lookup-spinner");
+    const customerId = document.getElementById("lookup_customer_id").value.trim();
+
+    if (!customerId) {
+      showAlert("lookup-alert", "Please enter a Customer ID.", "error");
+      return;
+    }
+
+    btn.disabled = true;
+    spinner.style.display = "inline-block";
+
+    try {
+      const res = await fetch(`${API_URL}/customer/${encodeURIComponent(customerId)}`, {
+        signal: AbortSignal.timeout(10000)
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || `Customer ${customerId} not found`);
+      }
+
+      const result = await res.json();
+      renderResultCard(result, "lookup-result", `Customer Lookup: ${customerId}`);
+
+    } catch (e) {
+      showAlert("lookup-alert", `Error: ${e.message}`, "error");
+    } finally {
+      btn.disabled = false;
+      spinner.style.display = "none";
+    }
+  }
+
+  // ── BATCH PREDICT ────────────────────────────────────────────────
   let batchData = null;
   const REQUIRED_COLS = [
     "Credit_Utilization","Missed_Payments","Credit_Score",
@@ -851,19 +981,18 @@
       const rows = text.trim().split("\n");
       const headers = rows[0].split(",").map(h => h.trim().replace(/"/g, ""));
 
-      // Check required columns
       const missing = REQUIRED_COLS.filter(c => !headers.includes(c));
       if (missing.length > 0) {
         showAlert("batch-alert", `Missing columns: ${missing.join(", ")}`, "error");
         return;
       }
 
-      // Parse CSV into array of objects
       batchData = rows.slice(1).filter(r => r.trim()).map(row => {
         const vals = row.split(",").map(v => v.trim().replace(/"/g, ""));
         const obj = {};
         headers.forEach((h, i) => obj[h] = vals[i]);
         return {
+          Customer_ID:          obj.Customer_ID || `CUST${String(Math.floor(Math.random()*9000)+1000)}`,
           Credit_Utilization:   parseFloat(obj.Credit_Utilization),
           Missed_Payments:      parseInt(obj.Missed_Payments),
           Credit_Score:         parseFloat(obj.Credit_Score),
@@ -891,7 +1020,7 @@
       return;
     }
 
-    const btn     = document.getElementById("batch-btn");
+    const btn = document.getElementById("batch-btn");
     const spinner = document.getElementById("batch-spinner");
 
     btn.disabled = true;
@@ -920,21 +1049,23 @@
     }
   }
 
+  // ── BATCH RESULTS WITH FILTERING ─────────────────────────────────
+  let currentBatchResults = null;
+
   function renderBatchResults(result) {
-    const preds  = result.predictions;
+    currentBatchResults = result;
+    const preds = result.predictions;
     const counts = { High: 0, Medium: 0, Low: 0 };
     preds.forEach(p => counts[p.risk_tier]++);
 
-    // Build table rows
-    const rows = preds.map(p => `
-      <tr>
-        <td>#${p.customer_index}</td>
-        <td>${tierBadge(p.risk_tier)}</td>
-        <td>${(p.risk_score * 100).toFixed(1)}%</td>
-        <td>${(p.confidence * 100).toFixed(1)}%</td>
-        <td style="font-size:12px; color:var(--muted);">${p.intervention}</td>
-      </tr>
-    `).join("");
+    const filterHtml = `
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterBatch('all', this)">All (${result.total})</button>
+        <button class="filter-tab" onclick="filterBatch('High', this)">🔴 High (${counts.High})</button>
+        <button class="filter-tab" onclick="filterBatch('Medium', this)">🟡 Medium (${counts.Medium})</button>
+        <button class="filter-tab" onclick="filterBatch('Low', this)">🟢 Low (${counts.Low})</button>
+      </div>
+    `;
 
     document.getElementById("batch-results").style.display = "block";
     document.getElementById("batch-results").innerHTML = `
@@ -957,38 +1088,82 @@
         </div>
       </div>
 
+      ${filterHtml}
+
       <div class="card">
         <h3>Results</h3>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>#</th><th>Risk Tier</th><th>Risk Score</th><th>Confidence</th><th>Action</th></tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
+        <div class="table-wrap" id="batch-table-wrap">
+          ${buildBatchTable(preds)}
         </div>
-        <button class="btn btn-outline" style="margin-top:16px; width:auto;" onclick="downloadResults(${JSON.stringify(result).replace(/"/g, '&quot;')})">
-          ⬇️ Download Results CSV
-        </button>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="downloadResults()">
+            ⬇️ Download Results CSV
+          </button>
+          <button class="btn btn-outline" onclick="downloadHighRisk()">
+            🔴 Download High-Risk Only
+          </button>
+        </div>
       </div>
     `;
 
     document.getElementById("batch-results").scrollIntoView({ behavior: "smooth" });
   }
 
-  // ── DOWNLOAD TEMPLATE ─────────────────────────────────────────────
+  function buildBatchTable(preds) {
+    const rows = preds.map(p => `
+      <tr>
+        <td>${p.Customer_ID || `#${p.customer_index}`}</td>
+        <td>${tierBadge(p.risk_tier)}</td>
+        <td>${(p.risk_score * 100).toFixed(1)}%</td>
+        <td>${(p.confidence * 100).toFixed(1)}%</td>
+        <td style="font-size:12px; color:var(--muted);">${p.intervention}</td>
+      </tr>
+    `).join("");
+
+    return `
+      <table>
+        <thead>
+          <tr><th>Customer ID</th><th>Risk Tier</th><th>Risk Score</th><th>Confidence</th><th>Action</th></tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  }
+
+  function filterBatch(tier, btn) {
+    document.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+
+    const preds = tier === 'all'
+      ? currentBatchResults.predictions
+      : currentBatchResults.predictions.filter(p => p.risk_tier === tier);
+
+    document.getElementById("batch-table-wrap").innerHTML = buildBatchTable(preds);
+  }
+
+  // ── DOWNLOADS ────────────────────────────────────────────────────
   function downloadTemplate() {
-    const csv = "Credit_Utilization,Missed_Payments,Credit_Score,Debt_to_Income_Ratio,Income,Loan_Balance,Age,Account_Tenure\n0.85,2,480,0.6,45000,12000,34,3";
+    const csv = "Customer_ID,Credit_Utilization,Missed_Payments,Credit_Score,Debt_to_Income_Ratio,Income,Loan_Balance,Age,Account_Tenure\nCUST0001,0.85,2,480,0.6,45000,12000,34,3";
     downloadCSV(csv, "geldium_template.csv");
   }
 
-  // ── DOWNLOAD RESULTS ──────────────────────────────────────────────
-  function downloadResults(result) {
-    const headers = "customer_index,risk_tier,risk_score,confidence,intervention";
-    const rows = result.predictions.map(p =>
-      `${p.customer_index},${p.risk_tier},${p.risk_score},${p.confidence},"${p.intervention}"`
+  function downloadResults() {
+    if (!currentBatchResults) return;
+    const headers = "Customer_ID,risk_tier,risk_score,confidence,intervention";
+    const rows = currentBatchResults.predictions.map(p =>
+      `${p.Customer_ID || p.customer_index},${p.risk_tier},${p.risk_score},${p.confidence},"${p.intervention}"`
     ).join("\n");
     downloadCSV(`${headers}\n${rows}`, "geldium_predictions.csv");
+  }
+
+  function downloadHighRisk() {
+    if (!currentBatchResults) return;
+    const highRisk = currentBatchResults.predictions.filter(p => p.risk_tier === "High");
+    const headers = "Customer_ID,risk_tier,risk_score,confidence,intervention";
+    const rows = highRisk.map(p =>
+      `${p.Customer_ID || p.customer_index},${p.risk_tier},${p.risk_score},${p.confidence},"${p.intervention}"`
+    ).join("\n");
+    downloadCSV(`${headers}\n${rows}`, "geldium_high_risk.csv");
   }
 
   function downloadCSV(content, filename) {
@@ -999,7 +1174,7 @@
     a.click();
   }
 
-  // ── SETTINGS ──────────────────────────────────────────────────────
+  // ── SETTINGS ─────────────────────────────────────────────────────
   async function loadSettings() {
     try {
       const res = await fetch(`${API_URL}/settings`);
@@ -1008,11 +1183,10 @@
       document.getElementById("receiver_name").value  = data.receiver_name  || "";
       document.getElementById("receiver_email").value = data.receiver_email || "";
 
-      // Show sender status
       const senderEl = document.getElementById("sender-status");
       senderEl.innerHTML = data.sender_configured
         ? `<span style="color:var(--low);">✅ Sender email is configured and ready.</span>`
-        : `<span style="color:var(--high);">⚠️ Sender email not configured. Set GELDIUM_SENDER_EMAIL and GELDIUM_SENDER_PASSWORD in .env</span>`;
+        : `<span style="color:var(--high);">⚠️ Sender email not configured. Contact your administrator.</span>`;
 
     } catch (e) {
       console.warn("Could not load settings:", e);
@@ -1020,17 +1194,15 @@
   }
 
   async function saveSettings() {
-    const btn     = document.getElementById("save-btn");
+    const btn = document.getElementById("save-btn");
     const spinner = document.getElementById("save-spinner");
-    const name    = document.getElementById("receiver_name").value.trim();
-    const email   = document.getElementById("receiver_email").value.trim();
+    const name  = document.getElementById("receiver_name").value.trim();
+    const email = document.getElementById("receiver_email").value.trim();
 
     if (!email) {
       showAlert("settings-alert", "Please enter an email address.", "error");
       return;
     }
-
-    // Basic email format check
     if (!email.includes("@") || !email.includes(".")) {
       showAlert("settings-alert", "Please enter a valid email address.", "error");
       return;
