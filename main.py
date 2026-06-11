@@ -869,6 +869,7 @@ import os
 import logging
 import pandas as pd
 
+
 # ── LOGGING SETUP ─────────────────────────────────────────────────────────────
 # Timestamps + severity levels on every log line
 logging.basicConfig(level=logging.INFO)
@@ -883,7 +884,14 @@ DATA_PATH  = os.path.join(BASE_DIR, "data.xlsx")
 # ── GEMINI SETUP ──────────────────────────────────────────────────────────────
 # Initialise Gemini client once at startup — not on every request
 # API key comes from Railway environment variables (never hardcoded)
-gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+# gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+# ── GEMINI SETUP ──────────────────────────────────────────────────────────────
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+# TEMPORARY DEBUG — remove after fixing
+logger.info(f"GEMINI_API_KEY loaded: {'YES' if GEMINI_API_KEY else 'NO — KEY IS MISSING'}")
+
+gemini_client = genai.Client(api_key=GEMINI_API_KEY) if GEMINI_API_KEY else None
 
 # ── LOAD MODEL AT STARTUP ─────────────────────────────────────────────────────
 # Runs once when server starts — not on every request
@@ -1011,6 +1019,7 @@ def get_gemini_explanation(customer: CustomerInput, risk_tier: str, risk_score: 
     In 2 sentences, explain why this customer is {risk_tier} risk
     and what action the collections team should take.
     """
+    
     try:
         response = gemini_client.models.generate_content(
             model="gemini-2.0-flash",
