@@ -10,3 +10,4 @@ schedule
 python-dotenv
 google-genai
 streamlit
+python-multipart
