@@ -80,7 +80,7 @@ jobs:
           GELDIUM_SENDER_NAME:     ${{ secrets.GELDIUM_SENDER_NAME }}
           GELDIUM_RECEIVER_EMAIL:  ${{ secrets.GELDIUM_RECEIVER_EMAIL }}
           GELDIUM_RECEIVER_NAME:   ${{ secrets.GELDIUM_RECEIVER_NAME }}
-          GEMINI_API_KEY:          ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY:          ${{ secrets.GROQ_API_KEY }}
         run: python agent.py
 
       # ── STEP 5: Upload audit log as artifact ────────────────
